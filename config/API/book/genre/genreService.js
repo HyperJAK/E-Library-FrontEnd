@@ -1,14 +1,12 @@
-import { getAllGenres, getGenreById, createGenre, updateGenre, deleteGenre, clearGenreCache } from './genreRequest';
+import {clearGenreCache, createGenre, deleteGenre, getAllGenres, getGenreById, updateGenre} from './genreRequest';
 
-export const fetchAndFormatGenres = async () => {
+export const fetchGenres = async () => {
     try {
-        const genres = await getAllGenres();
-        return genres.map(genre => ({
-            ...genre,
-            formattedDate: new Date(genre.createdAt).toLocaleDateString(),
-        }));
+
+        return await getAllGenres();
+
     } catch (error) {
-        console.error('Error fetching and formatting genres:', error);
+        console.error('Error fetching genres:', error);
         throw error;
     }
 };
