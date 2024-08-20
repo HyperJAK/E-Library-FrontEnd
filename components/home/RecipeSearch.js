@@ -90,7 +90,7 @@ const RecipeSearch = () => {
                 onChange={handleInputChange}
                 className={'textarea w-[90%] border-white/40 rounded-2xl pl-2'}></input>
               {/*buttons here*/}
-              
+
               <Link href={`/recipes/searchResults?id=${recipeName}`}>
                 <Image
                     src={'/icons/searchBtn.png'}

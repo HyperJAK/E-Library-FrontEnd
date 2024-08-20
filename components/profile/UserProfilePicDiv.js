@@ -65,7 +65,7 @@ const UserProfilePicDiv = ({data}) => {
             <p className={'text-opposite'}>{'Friends'}</p>
           </div>
 
-          {/*Saved recipes info box*/}
+          {/*Saved book info box*/}
           <div
             className={
               'flex h-[120px] w-[120px] min-w-[100px] flex-col items-center justify-between rounded-2xl border-2 border-solid border-secondary p-6 text-center align-middle'

@@ -116,7 +116,7 @@ const RecipeCategories = () => {
                       return (
                         <Link
                           key={subCat.name}
-                          href={'/recipes'}>
+                          href={'/book'}>
                           {/*replace this href with actual road for the specific category*/}
                           <Button
                             style={

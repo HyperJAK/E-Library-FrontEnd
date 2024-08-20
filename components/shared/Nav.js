@@ -260,33 +260,28 @@ const Nav = () => {
             className={`flex flex-row justify-center gap-x-10 ${rubikBold.variable} h-full font-rubik text-[18px] text-opposite`}>
             <Link
               href={'/'}
-              className={`${pathName === '/' ? 'border-b-4' : ''}  border-b-secondary p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              className={`${pathName === '/' ? 'border-b-4' : ''}  border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
               Home
             </Link>
 
             <Link
-              href={'/recipes'}
-              className={`${pathName === '/recipes' ? 'border-b-4' : ''}  border-b-secondary p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              Recipes
+              href={'/book'}
+              className={`${pathName === '/book' ? 'border-b-4' : ''}  border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              Books
             </Link>
 
             <Link
-              href={'/kitchenTips'}
-              className={`${pathName === '/kitchenTips' ? 'border-b-4' : ''}  border-b-secondary p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              href={'/aboutUs'}
+              className={`${pathName === '/aboutus' ? 'border-b-4' : ''}  border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
               Kitchen Tips
             </Link>
 
             <Link
-              href={'/shop'}
-              className={`${pathName === '/shop' ? 'border-b-4' : ''}  border-b-secondary p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              href={'/contactUs'}
+              className={`${pathName === '/contactus' ? 'border-b-4' : ''}  border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
               Shop
             </Link>
 
-            <Link
-              href={'/news'}
-              className={`${pathName === '/news' ? 'border-b-4' : ''}  border-b-secondary p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              News
-            </Link>
           </div>
 
           {/*buttons right*/}

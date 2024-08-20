@@ -75,7 +75,7 @@ const AboutUsInfo = () => {
             the joy of cooking and savoring the world's diverse culinary
             offerings!
           </p>
-          <Link href={'/recipes'}>
+          <Link href={'/book'}>
             <Button
               style={
                 'justify-center flex flex-row border-solid border-secondary border-2 bg-secondary p-10 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-2xl hover:text-opposite'

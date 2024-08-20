@@ -111,7 +111,7 @@ export default function SearchResults({params}) {
               </p>
             </div>
 
-            {/*Div for all recipes*/}
+            {/*Div for all book*/}
             <div className={'flex flex-row flex-wrap justify-between gap-20'}>
               {recipeSearchResults.map((recipe) => {
                 {
