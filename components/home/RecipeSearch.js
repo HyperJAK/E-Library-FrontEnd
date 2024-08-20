@@ -88,18 +88,11 @@ const RecipeSearch = () => {
                 placeholder={'Search recipe'}
                 type={'text'}
                 onChange={handleInputChange}
-                className={'textarea w-[90%] border-white/40'}></input>
+                className={'textarea w-[90%] border-white/40 rounded-2xl pl-2'}></input>
               {/*buttons here*/}
-              <div className={'flex flex-row gap-2'}>
+              
+              <Link href={`/recipes/searchResults?id=${recipeName}`}>
                 <Image
-                  src={'/icons/person.png'}
-                  alt={'edit icon'}
-                  width={60}
-                  height={30}
-                  className={'rounded-2xl mix-blend-lighten hover:bg-secondary'}
-                />
-                <Link href={`/recipes/searchResults?id=${recipeName}`}>
-                  <Image
                     src={'/icons/searchBtn.png'}
                     alt={'search icon'}
                     width={60}
@@ -107,9 +100,8 @@ const RecipeSearch = () => {
                     className={
                       'rounded-2xl mix-blend-difference hover:bg-secondary'
                     }
-                  />
-                </Link>
-              </div>
+                />
+              </Link>
             </div>
           </div>
 
