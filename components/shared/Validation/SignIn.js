@@ -82,7 +82,7 @@ const SignIn = ({setShowSignIn}) => {
   return (
     <div
       className={
-        'relative flex flex-col items-center justify-center gap-10 rounded-2xl border-2 border-secondary bg-page p-6 align-middle'
+        'relative flex flex-col items-center justify-center gap-10 rounded-bl-2xl rounded-br-2xl border-2 border-secondary bg-page p-6 align-middle'
       }>
       <div className={'absolute bottom-0 right-0'}>
         <Image
@@ -96,9 +96,7 @@ const SignIn = ({setShowSignIn}) => {
       {/*Title here*/}
       <div className={'flex flex-row self-center'}>
         <p
-          className={`${rubikBold.variable} font-rubik text-[30px] text-opposite`}>
-          <span className={'text-secondary'}>S</span>ign
-          <span className={'text-secondary'}> i</span>n
+            className={`${rubikBold.variable} font-rubik text-[30px] text-primary`}>Sign in
         </p>
       </div>
       {/*Buttons and textfields here*/}
@@ -125,7 +123,7 @@ const SignIn = ({setShowSignIn}) => {
         </div>
         {/*Show password checkbox*/}
         <div>
-          <span className="mr-2">Show Password</span>
+          <span className="mr-2 text-primary">Show Password</span>
           <input
             type="checkbox"
             id="show-password"
@@ -138,7 +136,7 @@ const SignIn = ({setShowSignIn}) => {
         {/*Sign up button*/}
         <Button
           style={
-            'justify-center w-50 flex flex-row border-solid border-secondary border-2 bg-secondary p-4 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-2xl hover:text-opposite'
+            'justify-center w-50 flex flex-row border-solid border-secondary border-2 bg-secondary p-4 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-2xl hover:text-primary'
           }
           itemComponents={<p>Sign In</p>}
           handle={handleSignIn}
@@ -152,7 +150,7 @@ const SignIn = ({setShowSignIn}) => {
           <p>Already have an account ?</p>
           <Button
             style={
-              'justify-center w-50 flex flex-row border-solid border-secondary border-2 bg-opposite p-4 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-2xl hover:text-opposite'
+              'justify-center w-50 flex flex-row border-solid border-secondary border-2 bg-opposite p-4 hover:bg-accent hover:cursor-pointer flex-row flex text-primary rounded-2xl hover:text-primary'
             }
             itemComponents={<p>Sign Up</p>}
             handle={() => setShowSignIn(false)}

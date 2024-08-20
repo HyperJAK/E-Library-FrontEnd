@@ -31,7 +31,7 @@ const AuthRegister = () => {
     <Link href={'/api/auth/login'}>
       <Button
         style={
-          'justify-center w-50 flex flex-row border-solid border-secondary border-2 align-middle self-center bg-white p-4 hover:bg-secondary hover:cursor-pointer flex-row gap-5 flex text-opposite rounded-2xl hover:text-accent'
+          'justify-center w-50 flex flex-row border-solid border-secondary border-2 align-middle self-center bg-white p-4 hover:bg-secondary hover:cursor-pointer flex-row gap-5 flex text-primary rounded-2xl hover:text-accent'
         }
         itemComponents={
           <>
