@@ -65,7 +65,7 @@ const RecipeSearch = () => {
       {/*Main components parent*/}
       <div
         className={
-          'z-50 mt-[200px] flex w-full flex-row flex-wrap items-center justify-between '
+          'z-50 mt-[100px] mb-[200px] flex w-full flex-row flex-wrap items-center justify-between '
         }>
         {/*Search and suggestions under it*/}
         <div className={'relative flex flex-col gap-5'}>
@@ -75,9 +75,9 @@ const RecipeSearch = () => {
             {/*Catchphrase*/}
             <p
               className={`${rubikBold.variable} text-center font-rubik text-[4rem] text-opposite`}>
-              <span className={'text-secondary'}>Slogan</span> Here,
-              <br></br> Stay with a{' '}
-              <span className={'text-secondary'}>Beer</span>
+              <span className={'text-secondary'}>Rent</span> Your Books
+              <br></br> And Vent Your{' '}
+              <span className={'text-secondary'}>Proofs</span>
             </p>
             {/*search textfield*/}
             <div
@@ -106,7 +106,7 @@ const RecipeSearch = () => {
           </div>
 
           <div
-            className={`flex h-72 max-h-72 flex-col justify-start gap-2 overflow-auto rounded-2xl p-5 ${recipeSuggestions.length === 0 ? 'bg-transparent' : 'bg-opposite'}`}>
+            className={`h-72 max-h-72 flex-col justify-start gap-2 overflow-auto rounded-2xl p-5 ${recipeSuggestions.length === 0 ? 'bg-transparent hidden' : 'bg-opposite flex'}`}>
             {recipeSuggestions &&
               recipeSuggestions.map((suggestion) => {
                 return (

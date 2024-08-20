@@ -57,7 +57,7 @@ const InterestingInfo = () => {
       {/*Main components parent*/}
       <div
         className={
-          'z-50 flex w-full flex-row flex-wrap items-center justify-center gap-60 bg-accent pb-[120px] pl-40 pr-40 pt-[120px]'
+          'z-50 flex w-full flex-row flex-wrap items-center justify-center gap-60 pb-[120px] pl-40 pr-40 pt-[120px]'
         }>
         {/*Image div*/}
         <div className={'relative'}>
@@ -91,7 +91,7 @@ const InterestingInfo = () => {
                     />
                   </div>
                   {/*Informative text*/}
-                  <p className={'text-opposite'}>{infoData.description}</p>
+                  <p className={'text-accent'}>{infoData.description}</p>
                 </div>
               )
             })}
@@ -106,11 +106,11 @@ const InterestingInfo = () => {
                     'flex h-[180px] w-[180px] min-w-[180px] flex-col items-center justify-between rounded-2xl border-2 border-solid border-secondary p-6 text-center align-middle'
                   }>
                   {/*Icon / Main Text*/}
-                  <h1 className={'text-2xl text-secondary'}>
+                  <h1 className={'text-2xl text-white font-bold'}>
                     {infoData.dataNb}
                   </h1>
                   {/*Informative text*/}
-                  <p className={'text-opposite'}>{infoData.description}</p>
+                  <p className={'text-accent'}>{infoData.description}</p>
                 </div>
               )
             })}
