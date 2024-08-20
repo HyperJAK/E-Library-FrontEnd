@@ -19,11 +19,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#6D6DF3',
-        secondary: '#F06E30',
+        primary: '#1C1C1C',
+        secondary: '#1A2A6C',
         accent: '#F5F4F4',
         page: '#FFFFFF',
-        opposite: '#10101F',
+        opposite: '#FFFFFF',
         backupOppositeOfOpposite: '#D9D9D9',
       },
       backgroundImage: {

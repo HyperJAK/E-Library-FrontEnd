@@ -65,7 +65,7 @@ const RecipeSearch = () => {
       {/*Main components parent*/}
       <div
         className={
-          'z-50 mt-[200px] flex w-full flex-row flex-wrap items-center justify-center gap-60 pl-40 pr-40'
+          'z-50 mt-[200px] flex w-full flex-row flex-wrap items-center justify-between '
         }>
         {/*Search and suggestions under it*/}
         <div className={'relative flex flex-col gap-5'}>
@@ -145,6 +145,7 @@ const RecipeSearch = () => {
             alt={'introductory pic'}
             width={400}
             height={400}
+
           />
         </div>
       </div>
