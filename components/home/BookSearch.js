@@ -82,7 +82,7 @@ const BookSearch = () => {
                 placeholder={'Search book'}
                 type={'text'}
                 onChange={handleInputChange}
-                className={'textarea w-[90%] border-white/40 rounded-2xl pl-2'}></input>
+                className={'textarea text-primary w-[90%] border-white/40 rounded-2xl pl-2'}></input>
               {/*buttons here*/}
 
               <Link href={`/book/searchResults?id=${bookName}`}>
