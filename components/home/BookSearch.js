@@ -10,6 +10,7 @@ import Socials from '../Socials'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import * as withClient from 'react'
+import {fetchGenres} from "@/config/API/book/genre/genreService";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -23,42 +24,35 @@ const rubikRegular = Rubik({
   weight: ['400'],
 })
 
-const RecipeSearch = () => {
-  const [recipeName, setRecipeName] = useState('')
-  const [recipeSuggestions, setRecipeSuggestions] = useState([])
+const BookSearch = () => {
+  const [bookName, setBookName] = useState('')
+  const [bookSuggestions, setBookSuggestions] = useState([])
 
   const handleInputChange = async (event) => {
-    setRecipeName(event.target.value)
+    setBookName(event.target.value)
   }
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/recipes/getSuggestions?id=${recipeName}`,
-          {
-            method: 'GET',
-          }
-        )
-
-        const data = await response.json()
+        const data = await fetchSuggestions()
 
         if (data) {
-          setRecipeSuggestions(data)
+          setBookSuggestions(data)
         } else {
-          setRecipeSuggestions([])
+          setBookSuggestions([])
         }
 
-        if (recipeName == '') {
-          setRecipeSuggestions([])
+        if (bookName == '') {
+          setBookSuggestions([])
         }
 
-        console.log(recipeSuggestions[0].name)
+        console.log(bookSuggestions[0].name)
       } catch (error) {}
     }
 
     fetchData()
-  }, [recipeName])
+  }, [bookName])
 
   return (
     <>
@@ -91,7 +85,7 @@ const RecipeSearch = () => {
                 className={'textarea w-[90%] border-white/40 rounded-2xl pl-2'}></input>
               {/*buttons here*/}
 
-              <Link href={`/recipes/searchResults?id=${recipeName}`}>
+              <Link href={`/recipes/searchResults?id=${bookName}`}>
                 <Image
                     src={'/icons/searchBtn.png'}
                     alt={'search icon'}
@@ -106,13 +100,13 @@ const RecipeSearch = () => {
           </div>
 
           <div
-            className={`h-72 max-h-72 flex-col justify-start gap-2 overflow-auto rounded-2xl p-5 ${recipeSuggestions.length === 0 ? 'bg-transparent hidden' : 'bg-opposite flex'}`}>
-            {recipeSuggestions &&
-              recipeSuggestions.map((suggestion) => {
+            className={`h-72 max-h-72 flex-col justify-start gap-2 overflow-auto rounded-2xl p-5 ${bookSuggestions.length === 0 ? 'bg-transparent hidden' : 'bg-opposite flex'}`}>
+            {bookSuggestions &&
+              bookSuggestions.map((suggestion) => {
                 return (
                   <Link
-                    href={`/recipes/${suggestion.recipe_id}?id=${suggestion.recipe_id}`}
-                    key={suggestion.recipe_id}
+                    href={`/recipes/${suggestion.id}?id=${suggestion.id}`}
+                    key={suggestion.id}
                     target="_blank"
                     rel="noopener noreferrer">
                     <div className="flex cursor-pointer flex-row justify-start gap-2 rounded-2xl p-4 hover:bg-secondary">
@@ -145,4 +139,4 @@ const RecipeSearch = () => {
   )
 }
 
-export default RecipeSearch
+export default BookSearch

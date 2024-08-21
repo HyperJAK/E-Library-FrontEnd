@@ -73,3 +73,17 @@ export const clearBookCache = async () => {
         throw error;
     }
 };
+
+export const getBookSuggestions = async (name) => {
+    try {
+        const response = await apiClient.get(`/Book/api/getSuggestions/${name}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting book suggestions:', error);
+        throw error;
+    }
+
+};
+
+
+

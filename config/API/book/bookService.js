@@ -1,4 +1,4 @@
-import { getAllBooks, getBookById, createBook, updateBook, deleteBook, clearBookCache } from './bookRequest';
+import {clearBookCache, createBook, deleteBook, getAllBooks, getBookById, updateBook} from './bookRequest';
 
 export const fetchAndFormatBooks = async () => {
     try {
@@ -84,3 +84,14 @@ export const handleClearCache = async () => {
         throw error;
     }
 };
+
+
+export const fetchBookSuggestions = async (name) => {
+    try {
+        return await getBookSuggestions(name);
+    } catch (error) {
+        console.error('Error fetching book suggestions:', error);
+        throw error;
+    }
+
+}

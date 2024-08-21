@@ -1,7 +1,7 @@
 'use client'
 import {useState} from "react";
 import {fetchAndFormatBooks} from "@/config/API/book/bookService";
-import RecipeSearch from "@/components/home/RecipeSearch";
+import BookSearch from "@/components/home/BookSearch";
 import InterestingInfo from "@/components/home/InterestingInfo";
 import GenresBrowsing from "@/components/home/GenresBrowsing";
 
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {/*All home page features*/}
-      <RecipeSearch />
+      <BookSearch />
       <GenresBrowsing />
       <InterestingInfo />
     </main>
