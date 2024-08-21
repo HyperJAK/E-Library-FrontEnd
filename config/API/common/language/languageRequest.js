@@ -1,11 +1,4 @@
-import axios from 'axios';
-
-const apiClient = axios.create({
-    baseURL: 'http://localhost:5227',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
+import {apiClient} from '../../server'
 
 export const getAllLanguages = async () => {
     try {
