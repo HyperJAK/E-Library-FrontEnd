@@ -4,7 +4,7 @@ import {
     deleteBook,
     getAllBooks,
     getBookById, getBookSearchResults,
-    getBookSuggestions,
+    getBookSuggestions, getBookWithGenre,
     updateBook
 } from './bookRequest';
 
@@ -107,6 +107,16 @@ export const fetchBookSuggestions = async (name) => {
 export const fetchBookSearchResults = async (name) => {
     try {
         return await getBookSearchResults(name);
+    } catch (error) {
+        console.error('Error fetching book search results:', error);
+        throw error;
+    }
+
+}
+
+export const fetchBooksWithGenre = async (id) => {
+    try {
+        return await getBookWithGenre(id);
     } catch (error) {
         console.error('Error fetching book search results:', error);
         throw error;

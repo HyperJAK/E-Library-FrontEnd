@@ -96,5 +96,16 @@ export const getBookSearchResults = async (name) => {
 
 };
 
+export const getBookWithGenre = async (id) => {
+    try {
+        const response = await apiClient.get(`/Book/api/getBooksByGenre/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting book search results:', error);
+        throw error;
+    }
+
+};
+
 
 
