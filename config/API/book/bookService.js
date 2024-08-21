@@ -1,4 +1,12 @@
-import {clearBookCache, createBook, deleteBook, getAllBooks, getBookById, updateBook} from './bookRequest';
+import {
+    clearBookCache,
+    createBook,
+    deleteBook,
+    getAllBooks,
+    getBookById,
+    getBookSuggestions,
+    updateBook
+} from './bookRequest';
 
 export const fetchAndFormatBooks = async () => {
     try {

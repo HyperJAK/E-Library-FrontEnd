@@ -6,11 +6,9 @@ import {Rubik} from 'next/font/google'
 import Link from 'next/link'
 
 //components
-import Socials from '../Socials'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
-import * as withClient from 'react'
-import {fetchGenres} from "@/config/API/book/genre/genreService";
+import {fetchBookSuggestions} from "@/config/API/book/bookService";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -35,7 +33,7 @@ const BookSearch = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await fetchSuggestions()
+        const data = await fetchBookSuggestions(bookName)
 
         if (data) {
           setBookSuggestions(data)
@@ -43,15 +41,17 @@ const BookSearch = () => {
           setBookSuggestions([])
         }
 
-        if (bookName == '') {
-          setBookSuggestions([])
-        }
-
         console.log(bookSuggestions[0].name)
       } catch (error) {}
     }
 
-    fetchData()
+    if (bookName != '') {
+      fetchData()
+    }
+    else{
+      setBookSuggestions([])
+    }
+
   }, [bookName])
 
   return (
