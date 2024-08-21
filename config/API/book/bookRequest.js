@@ -85,5 +85,16 @@ export const getBookSuggestions = async (name) => {
 
 };
 
+export const getBookSearchResults = async (name) => {
+    try {
+        const response = await apiClient.get(`/Book/api/getSearchResults/${name}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting book search results:', error);
+        throw error;
+    }
+
+};
+
 
 

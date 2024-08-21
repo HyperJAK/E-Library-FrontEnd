@@ -14,6 +14,7 @@ import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
 import {Rubik} from 'next/font/google'
 import Link from 'next/link'
+import {fetchBookSearchResults} from "@/config/API/book/bookService";
 
 const InterestData = {
   topInfo: [
@@ -63,64 +64,58 @@ const rubikRegular = Rubik({
 })
 
 export default function SearchResults({params}) {
-  const [recipeSearchResults, setRecipeSearchResults] = useState([])
-  const [recipeName, setRecipeName] = useState('')
+  const [bookSearchResults, setBookSearchResults] = useState([])
+  const [bookName, setBookName] = useState('')
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const name = urlParams.get('id')
-    setRecipeName(name)
-    console.log('Recipe id is: ' + name)
+    setBookName(name)
+    console.log('Book Name is: ' + name)
 
     async function fetchData() {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/recipes/getSearchResults?id=${name}`,
-          {
-            method: 'GET',
-          }
-        )
-
-        const data = await response.json()
+        const data = await fetchBookSearchResults(name);
 
         if (data) {
-          setRecipeSearchResults(data)
+          setBookSearchResults(data)
         } else {
-          setRecipeSearchResults([])
+          setBookSearchResults([])
         }
 
-        if (name == '') {
-          setRecipeSearchResults([])
-        }
-
-        console.log(setRecipeSearchResults[0].name)
       } catch (error) {}
     }
-    fetchData()
+    if (name != '') {
+      fetchData()
+    }
+    else{
+      setBookSearchResults([])
+    }
+
   }, [])
 
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-start gap-40 align-middle text-black">
-        {recipeSearchResults && (
+        {bookSearchResults && (
           <>
             <div
               className={` mt-6 w-[90%] items-center rounded-full bg-secondary p-2 text-center text-white ${rubikBold.variable} font-rubik text-[2rem]`}>
               <p>
-                {recipeSearchResults.length} results for: {recipeName}
+                {bookSearchResults.length} results for: {bookName}
               </p>
             </div>
 
             {/*Div for all book*/}
             <div className={'flex flex-row flex-wrap justify-between gap-20'}>
-              {recipeSearchResults.map((recipe) => {
+              {bookSearchResults.map((book) => {
                 {
                   /*Div for each recipe*/
                 }
                 return (
                   <div
                     className={'group flex flex-row flex-nowrap justify-center'}
-                    key={recipe.recipe_id}>
+                    key={book.id}>
                     {/*div for main info of recipe*/}
                     <div
                       className={
@@ -128,19 +123,19 @@ export default function SearchResults({params}) {
                       }>
                       <p
                         className={`${rubikBold.variable} font-rubik text-[1rem] text-opposite`}>
-                        {recipe.name}
+                        {book.title}
                       </p>
                       <p>
                         <div
                           className={
                             'flex flex-row justify-center self-center'
                           }>
-                          <Rating rating={recipe.rating} />
+                          <Rating rating={book.publishingDate} />
                         </div>
                       </p>
 
                       <Image
-                        src={recipe.share_link}
+                        src={book.share_link}
                         alt={'recipe image'}
                         width={150}
                         height={150}
@@ -158,21 +153,21 @@ export default function SearchResults({params}) {
                             'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
                           }>
                           <AccessTimeFilledRoundedIcon fontSize="small" />
-                          {recipe.cooking_time}
+                          {book.type}
                         </div>
                         <div
                           className={
                             'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
                           }>
                           <InsightsRoundedIcon fontSize="small" />
-                          {recipe.difficulty}
+                          {book.pageCount}
                         </div>
                         <div
                           className={
                             'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
                           }>
                           <PeopleAltRoundedIcon fontSize="small" />
-                          {recipe.servings}
+                          {book.publisher}
                         </div>
                       </div>
                     </div>
@@ -187,18 +182,18 @@ export default function SearchResults({params}) {
                       </p>
                       <p
                         className={`${rubikRegular.variable} max-h-[100px] max-w-[200px] overflow-auto font-rubik text-[0.6rem] text-opposite`}>
-                        {recipe.directions}
+                        {book.description}
                       </p>
 
                       <Link
-                        href={`/recipes/${recipe.recipe_id}?id=${recipe.recipe_id}`}
+                        href={`/book/${book.id}?id=${book.id}`}
                         target="_blank"
                         rel="noopener noreferrer">
                         <Button
                           style={
                             'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-opposite'
                           }
-                          itemComponents={<p>View Recipe</p>}
+                          itemComponents={<p>View Book</p>}
                           handle={''}
                         />
                       </Link>

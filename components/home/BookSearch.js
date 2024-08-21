@@ -79,13 +79,13 @@ const BookSearch = () => {
                 'flex h-[60px] w-[80%] flex-row justify-between gap-2 rounded-2xl border-white/40 '
               }>
               <input
-                placeholder={'Search recipe'}
+                placeholder={'Search book'}
                 type={'text'}
                 onChange={handleInputChange}
                 className={'textarea w-[90%] border-white/40 rounded-2xl pl-2'}></input>
               {/*buttons here*/}
 
-              <Link href={`/recipes/searchResults?id=${bookName}`}>
+              <Link href={`/book/searchResults?id=${bookName}`}>
                 <Image
                     src={'/icons/searchBtn.png'}
                     alt={'search icon'}
