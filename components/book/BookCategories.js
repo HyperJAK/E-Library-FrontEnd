@@ -82,11 +82,11 @@ const CategoriesData = {
   ],
 }
 
-const RecipeCategories = () => {
-  const [navToRecipeWithId, setNavToRecipeWithId] = useState('')
+const BookCategories = () => {
+  const [navToBookWithId, setNavToBookWithId] = useState('')
 
   const handleButtonClick = (event) => {
-    setNavToRecipeWithId(event.target.key)
+    setNavToBookWithId(event.target.key)
   }
 
   return (
@@ -139,4 +139,4 @@ const RecipeCategories = () => {
   )
 }
 
-export default RecipeCategories
+export default BookCategories

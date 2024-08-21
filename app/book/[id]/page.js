@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react'
 import {
 //here we put functions to get from this service
 } from '@/config/API/book/bookService'
-import Rating from '@/components/recipe/Rating'
+import Rating from '@/components/book/Rating'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
@@ -53,8 +53,8 @@ const rubikBold = Rubik({
 })
 
 export default function SpecificRecipe({params}) {
-  /*if (!recipe) {
-    // Handle the case where no recipe data was found (optional)
+  /*if (!book) {
+    // Handle the case where no book data was found (optional)
     return <p>Recipe not found!</p>
   }*/
   const [recipeDetails, setRecipeDetails] = useState('')
@@ -100,7 +100,7 @@ export default function SpecificRecipe({params}) {
           }>
           <Image
             src={'/recipeExample.png'}
-            alt={'recipe image'}
+            alt={'book image'}
             width={1000}
             height={600}
             className={'absolute z-10 w-[800px]'}
@@ -322,7 +322,7 @@ export default function SpecificRecipe({params}) {
       const recipeDetails = await GetRecipeDetails({id: id})
 
       if (recipeDetails) {
-        console.log('Got recipe ' + recipeDetails.recipe_id + ' details')
+        console.log('Got book ' + recipeDetails.recipe_id + ' details')
         setRecipeDetails(recipeDetails)
 
         const publisherInfo = await GetRecipePublisher({
@@ -345,16 +345,16 @@ export default function SpecificRecipe({params}) {
             if (reviews) {
               setRecipeReviews(reviews)
             } else {
-              console.log('Failed to get recipe reviews')
+              console.log('Failed to get book reviews')
             }
           } else {
-            console.log('Failed to get recipe ingredients')
+            console.log('Failed to get book ingredients')
           }
         } else {
           console.log('Failed to get publisher details')
         }
       } else {
-        console.log('Failed to get recipe details')
+        console.log('Failed to get book details')
       }
     }
     fetchData()

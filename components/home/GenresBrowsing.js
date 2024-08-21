@@ -93,9 +93,11 @@ const GenresBrowsing = () => {
                 <div className={'flex flex-row flex-wrap justify-center z-20'}>
                     {displayedGenres.length > 0 ?
                         (displayedGenres.map((genre) => (
-                            <div key={genre.id} className={'flex flex-col justify-center ml-4 mt-4 align-middle items-center bg-primary hover:bg-primary/70 w-60 h-60 rounded-2xl'}>
-                                <p className={''}>{genre.type}</p>
-                            </div>
+                            <Link href={`/book/genre?id=${genre.id}`} key={genre.id}>
+                                <div className={'flex flex-col justify-center ml-4 mt-4 align-middle items-center bg-primary hover:bg-primary/70 w-60 h-60 rounded-2xl'}>
+                                    <p className={''}>{genre.type}</p>
+                                </div>
+                            </Link>
                         )))
                         :
                         (

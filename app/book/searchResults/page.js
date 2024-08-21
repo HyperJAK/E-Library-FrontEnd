@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
-import Rating from '@/components/recipe/Rating'
+import Rating from '@/components/book/Rating'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
@@ -104,13 +104,13 @@ export default function SearchResults({params}) {
             <div className={'flex flex-row flex-wrap justify-between gap-20'}>
               {bookSearchResults.map((book) => {
                 {
-                  /*Div for each recipe*/
+                  /*Div for each book*/
                 }
                 return (
                   <div
                     className={'group flex flex-row flex-nowrap justify-center'}
                     key={book.id}>
-                    {/*div for main info of recipe*/}
+                    {/*div for main info of book*/}
                     <div
                       className={
                         'flex flex-col items-center border-2 border-red-600 justify-center gap-4 group-hover:rounded-br-none group-hover:rounded-tr-none rounded-2xl border-b-2 border-l-2 border-t-2 border-transparent p-2 group-hover:border-secondary'
@@ -123,7 +123,7 @@ export default function SearchResults({params}) {
 
                       <Image
                         src={book.share_link}
-                        alt={'recipe image'}
+                        alt={'book image'}
                         width={150}
                         height={150}
                         className={
@@ -158,7 +158,7 @@ export default function SearchResults({params}) {
                         </div>
                       </div>
                     </div>
-                    {/*div for description and button to navigate to recipe page*/}
+                    {/*div for description and button to navigate to book page*/}
                     <div
                       className={
                         'hidden flex-col items-center justify-between rounded-br-2xl rounded-tr-2xl border-b-2 border-r-2 border-t-2 border-transparent p-2 align-middle group-hover:flex group-hover:border-secondary'

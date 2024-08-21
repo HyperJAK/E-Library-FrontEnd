@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
-import Rating from '@/components/recipe/Rating'
+import Rating from '@/components/book/Rating'
 import {Rubik} from 'next/font/google'
 import {GetProductDetails} from '@/config/API/product/productRequest'
 import {AddProductToCart, GetAllActiveCartItems} from '@/config/API/cart/cartRequest'
