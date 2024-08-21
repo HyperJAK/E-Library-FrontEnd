@@ -260,26 +260,26 @@ const Nav = () => {
             className={`flex flex-row justify-center gap-x-10 ${rubikBold.variable} h-full font-rubik text-[18px] text-opposite`}>
             <Link
               href={'/'}
-              className={`${pathName === '/' ? 'border-b-4' : ''}  border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              className={`${pathName === '/' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
               Home
             </Link>
 
             <Link
               href={'/book'}
-              className={`${pathName === '/book' ? 'border-b-4' : ''}  border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              className={`${pathName === '/book' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
               Books
             </Link>
 
             <Link
               href={'/aboutUs'}
-              className={`${pathName === '/aboutus' ? 'border-b-4' : ''}  border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              Kitchen Tips
+              className={`${pathName === '/aboutus' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              About Us
             </Link>
 
             <Link
               href={'/contactUs'}
-              className={`${pathName === '/contactus' ? 'border-b-4' : ''}  border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              Shop
+              className={`${pathName === '/contactus' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
+              Contact Us
             </Link>
 
           </div>

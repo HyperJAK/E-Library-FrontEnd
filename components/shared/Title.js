@@ -9,8 +9,8 @@ const rubikBold = Rubik({
 const Title = () => {
   return (
     <p className={`${rubikBold.variable} font-rubik text-[30px] text-opposite`}>
-      W<span className={'text-secondary'}>4</span>Kitchen
-      <span className={'text-secondary'}>.</span>
+      <span className={'text-secondary'}>B</span>ymphony
+        <span className={'text-secondary'}>.</span>
     </p>
   )
 }
