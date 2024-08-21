@@ -3,11 +3,8 @@ import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
 import {
-  GetRecipeDetails,
-  GetRecipeIngredients,
-  GetRecipePublisher,
-  GetRecipeReviews,
-} from '@/config/services/recipe'
+//here we put functions to get from this service
+} from '@/config/API/book/bookService'
 import Rating from '@/components/recipe/Rating'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'

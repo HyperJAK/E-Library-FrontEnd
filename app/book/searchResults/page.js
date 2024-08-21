@@ -2,12 +2,6 @@
 import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
-import {
-  GetRecipeDetails,
-  GetRecipeIngredients,
-  GetRecipePublisher,
-  GetRecipeReviews,
-} from '@/config/services/recipe'
 import Rating from '@/components/recipe/Rating'
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
 import InsightsRoundedIcon from '@mui/icons-material/InsightsRounded'
@@ -119,20 +113,13 @@ export default function SearchResults({params}) {
                     {/*div for main info of recipe*/}
                     <div
                       className={
-                        'flex flex-col items-center justify-center gap-4 rounded-bl-2xl rounded-tl-2xl border-b-2 border-l-2 border-t-2 border-transparent p-2 group-hover:border-secondary'
+                        'flex flex-col items-center border-2 border-red-600 justify-center gap-4 group-hover:rounded-br-none group-hover:rounded-tr-none rounded-2xl border-b-2 border-l-2 border-t-2 border-transparent p-2 group-hover:border-secondary'
                       }>
                       <p
-                        className={`${rubikBold.variable} font-rubik text-[1rem] text-opposite`}>
+                        className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>
                         {book.title}
                       </p>
-                      <p>
-                        <div
-                          className={
-                            'flex flex-row justify-center self-center'
-                          }>
-                          <Rating rating={book.publishingDate} />
-                        </div>
-                      </p>
+                      <p className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>{book.publishingDate}</p>
 
                       <Image
                         src={book.share_link}
@@ -140,7 +127,7 @@ export default function SearchResults({params}) {
                         width={150}
                         height={150}
                         className={
-                          'rotate-12 rounded-bl-[100px] rounded-tr-[100px] border-2 border-secondary'
+                          'rounded-2xl border-2 border-secondary'
                         }
                       />
 
