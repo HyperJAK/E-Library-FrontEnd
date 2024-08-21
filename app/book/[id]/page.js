@@ -1,3 +1,4 @@
+/*
 'use client'
 import Image from 'next/image'
 import Button from '@/components/shared/Button'
@@ -53,10 +54,10 @@ const rubikBold = Rubik({
 })
 
 export default function SpecificRecipe({params}) {
-  /*if (!book) {
+  /!*if (!book) {
     // Handle the case where no book data was found (optional)
     return <p>Recipe not found!</p>
-  }*/
+  }*!/
   const [recipeDetails, setRecipeDetails] = useState('')
   const [publisher, setPublisher] = useState('')
   const [recipeIngredients, setRecipeIngredients] = useState([])
@@ -67,12 +68,12 @@ export default function SpecificRecipe({params}) {
     return (
       <div className={'flex flex-row flex-nowrap'}>
         <Image
-          src={/*publisher ? publisher.profilePic : */ ''}
+          src={/!*publisher ? publisher.profilePic : *!/ ''}
           alt={'profile pic'}
           width={50}
           height={50}
         />
-        {/*We use a fetch in this component to get the user info so like username*/}
+        {/!*We use a fetch in this component to get the user info so like username*!/}
         <div className={'flex flex-row flex-wrap justify-center gap-5'}>
           <div className={'rounded-full bg-secondary p-3'}>
             {publisher.username}
@@ -92,7 +93,7 @@ export default function SpecificRecipe({params}) {
     return (
       <div
         className={'m-8 h-[600px] w-[100%] self-center rounded-2xl text-white'}>
-        {/*We use a fetch in this component to get the user info so like username*/}
+        {/!*We use a fetch in this component to get the user info so like username*!/}
 
         <div
           className={
@@ -106,7 +107,7 @@ export default function SpecificRecipe({params}) {
             className={'absolute z-10 w-[800px]'}
           />
 
-          {/*title and rating*/}
+          {/!*title and rating*!/}
           <div className={'z-30'}>
             <p
               className={`${rubikBold.variable} font-rubik text-[3rem] text-opposite`}>
@@ -175,7 +176,7 @@ export default function SpecificRecipe({params}) {
       <>
         {recipeDetails.length > 0 && recipeIngredients.length > 0 && (
           <div className={'flex flex-row flex-nowrap justify-center'}>
-            {/* Ingredients */}
+            {/!* Ingredients *!/}
             <div
               className={
                 'flex h-fit w-[50%] flex-col flex-nowrap items-center justify-center gap-2 p-10 align-middle'
@@ -183,7 +184,7 @@ export default function SpecificRecipe({params}) {
               <h2 className={`${rubikBold.variable} font-rubik text-[2rem]`}>
                 Ingredients
               </h2>
-              {/* Map over recipeIngredients and display each ingredient */}
+              {/!* Map over recipeIngredients and display each ingredient *!/}
               {recipeIngredients.map((ingredient, index) => (
                 <div
                   className={'relative'}
@@ -205,7 +206,7 @@ export default function SpecificRecipe({params}) {
               ))}
             </div>
 
-            {/* Instructions */}
+            {/!* Instructions *!/}
             <div
               className={
                 'flex h-fit w-[50%] flex-col flex-nowrap items-center justify-center gap-2 p-10 align-middle'
@@ -244,11 +245,11 @@ export default function SpecificRecipe({params}) {
                   className={
                     'flex h-[180px] w-[180px] min-w-[180px] flex-col items-center justify-evenly rounded-2xl border-2 border-solid border-secondary p-6 text-center align-middle'
                   }>
-                  {/*Icon / Main Text*/}
+                  {/!*Icon / Main Text*!/}
                   <h1 className={'text-2xl text-secondary'}>
                     {infoData.dataNb}
                   </h1>
-                  {/*Informative text*/}
+                  {/!*Informative text*!/}
                   <p className={'text-opposite'}>{infoData.description}</p>
                 </div>
               )
@@ -265,12 +266,12 @@ export default function SpecificRecipe({params}) {
         className={
           'flex w-[90%] flex-col flex-nowrap justify-center gap-10 rounded-2xl bg-accent p-10'
         }>
-        {/*Review count*/}
+        {/!*Review count*!/}
         <div
           className={`text-center ${rubikBold.variable} font-rubik text-[2rem]`}>
           Reviews ({recipeReviews ? recipeReviews.length : ''})
         </div>
-        {/*filter*/}
+        {/!*filter*!/}
         <div className={'text-right'}>filter here</div>
         {recipeReviews
           ? recipeReviews.map((review, index) => {
@@ -280,15 +281,15 @@ export default function SpecificRecipe({params}) {
                     'flex flex-col justify-between gap-2 rounded-3xl border border-b-2 border-b-secondary bg-accent p-10 text-accent'
                   }
                   key={index}>
-                  {/*publisher info*/}
+                  {/!*publisher info*!/}
                   <div className={'flex flex-row flex-nowrap'}>
                     <Image
-                      src={/*publisher ? publisher.profilePic : */ ''}
+                      src={/!*publisher ? publisher.profilePic : *!/ ''}
                       alt={'profile pic'}
                       width={50}
                       height={50}
                     />
-                    {/*We use a fetch in this component to get the user info so like username*/}
+                    {/!*We use a fetch in this component to get the user info so like username*!/}
                     <div
                       className={
                         'flex flex-row flex-wrap justify-center gap-5'
@@ -364,26 +365,27 @@ export default function SpecificRecipe({params}) {
     <>
       {recipeDetails && publisher && recipeIngredients && recipeReviews && (
         <main className="flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
-          {/*Main div*/}
+          {/!*Main div*!/}
           <div
             className={
               'flex w-[90%] flex-col flex-nowrap rounded-2xl bg-accent p-10'
             }>
-            {/*User info div*/}
+            {/!*User info div*!/}
             <UserInfoDiv />
-            {/*title and picture div*/}
+            {/!*title and picture div*!/}
             <TitleAndPicDiv />
-            {/*buttons choice div*/}
+            {/!*buttons choice div*!/}
             <ButtonsChoiceDiv />
-            {/*ingredients and prep method div*/}
+            {/!*ingredients and prep method div*!/}
             <IngredientsAndPrep />
-            {/*Nutrition facts div*/}
+            {/!*Nutrition facts div*!/}
             <NutritionFacts />
           </div>
-          {/*Reviews div*/}
+          {/!*Reviews div*!/}
           <RecipeReviews />
         </main>
       )}
     </>
   )
 }
+*/

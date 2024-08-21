@@ -10,40 +10,6 @@ import {Rubik} from 'next/font/google'
 import Link from 'next/link'
 import {fetchBooksWithGenre} from "@/config/API/book/bookService";
 
-const InterestData = {
-    topInfo: [
-        {
-            iconPath: '/icons/beenhere.png',
-            description: 'Professional chef’s approval',
-        },
-        {
-            iconPath: '/icons/done.png',
-            description: 'Safety checks',
-        },
-        {
-            iconPath: '/icons/fast_forward.png',
-            description: 'Fast equipment deliveries',
-        },
-    ],
-    bottomInfo: [
-        {
-            dataNb: 10000,
-            description: 'Recipes published',
-        },
-        {
-            dataNb: 7000,
-            description: 'Good ratings',
-        },
-        {
-            dataNb: 100000,
-            description: 'User reviews',
-        },
-        {
-            dataNb: 100000,
-            description: 'User reviews',
-        },
-    ],
-}
 
 const rubikBold = Rubik({
     subsets: ['latin'],
@@ -60,6 +26,7 @@ const rubikRegular = Rubik({
 export default function SpecificGenre({params}) {
     const [genreSearchResults, setGenreSearchResults] = useState([])
     const [genreId, setGenreId] = useState('')
+    const [genreName, setGenreName] = useState('')
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
@@ -73,6 +40,7 @@ export default function SpecificGenre({params}) {
 
                 if (data) {
                     setGenreSearchResults(data)
+                    setGenreName(data?.[0]?.genres?.[0]?.type ?? 'defaultGenreName');
                 } else {
                     setGenreSearchResults([])
                 }
@@ -96,7 +64,7 @@ export default function SpecificGenre({params}) {
                         <div
                             className={` mt-6 w-[90%] items-center rounded-full bg-secondary p-2 text-center text-white ${rubikBold.variable} font-rubik text-[2rem]`}>
                             <p>
-                                {genreSearchResults.length} results for: {genreId}
+                                {genreSearchResults.length} results for: {genreName} genre
                             </p>
                         </div>
 
@@ -108,18 +76,18 @@ export default function SpecificGenre({params}) {
                                 }
                                 return (
                                     <div
-                                        className={'group flex flex-row flex-nowrap justify-center'}
+                                        className={'group flex flex-row flex-nowrap justify-center border-2 border-primary rounded-2xl'}
                                         key={book.id}>
                                         {/*div for main info of book*/}
                                         <div
                                             className={
-                                                'flex flex-col items-center border-2 border-red-600 justify-center gap-4 group-hover:rounded-br-none group-hover:rounded-tr-none rounded-2xl border-b-2 border-l-2 border-t-2 border-transparent p-2 group-hover:border-secondary'
+                                                'flex flex-col items-center bg-white border-1 rounded-2xl border-black/50 group-hover:border-2 group-hover:border-white group-hover:rounded-tl-2xl group-hover:rounded-bl-2xl justify-center gap-4 group-hover:border-r-2 group-hover:rounded-br-none group-hover:rounded-tr-none group:hover:border-r-white p-2 '
                                             }>
                                             <p
-                                                className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>
+                                                className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-primary w-[80%]`}>
                                                 {book.title}
                                             </p>
-                                            <p className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>{book.publishingDate}</p>
+                                            <p className={`${rubikBold.variable} font-rubik text-[0.6rem] text-center text-primary w-[80%]`}>{book.publishingDate}</p>
 
                                             <Image
                                                 src={book.share_link}
@@ -137,21 +105,21 @@ export default function SpecificGenre({params}) {
                                                 }>
                                                 <div
                                                     className={
-                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
+                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
                                                     }>
                                                     <AccessTimeFilledRoundedIcon fontSize="small" />
                                                     {book.type}
                                                 </div>
                                                 <div
                                                     className={
-                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
+                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
                                                     }>
                                                     <InsightsRoundedIcon fontSize="small" />
                                                     {book.pageCount}
                                                 </div>
                                                 <div
                                                     className={
-                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
+                                                        'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
                                                     }>
                                                     <PeopleAltRoundedIcon fontSize="small" />
                                                     {book.publisher}
@@ -161,14 +129,14 @@ export default function SpecificGenre({params}) {
                                         {/*div for description and button to navigate to book page*/}
                                         <div
                                             className={
-                                                'hidden flex-col items-center justify-between rounded-br-2xl rounded-tr-2xl border-b-2 border-r-2 border-t-2 border-transparent p-2 align-middle group-hover:flex group-hover:border-secondary'
+                                                'hidden flex-col shadow-inner shadow-primary bg-white items-center justify-between rounded-br-2xl rounded-tr-2xl border-b-2 border-r-2 border-t-2 border-transparent p-2 align-middle group-hover:flex'
                                             }>
                                             <p
-                                                className={`${rubikBold.variable} font-rubik text-[1rem] text-opposite`}>
+                                                className={`${rubikBold.variable} font-rubik text-[1rem] text-primary`}>
                                                 Info
                                             </p>
                                             <p
-                                                className={`${rubikRegular.variable} max-h-[100px] max-w-[200px] overflow-auto font-rubik text-[0.6rem] text-opposite`}>
+                                                className={`${rubikRegular.variable} max-h-[100px] max-w-[200px] overflow-auto font-rubik text-[0.6rem] text-primary`}>
                                                 {book.description}
                                             </p>
 

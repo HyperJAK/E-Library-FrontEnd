@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
     <UserProvider>
       <head>
-        <title>W4Kitchen</title>
+        <title>Bymphony</title>
       </head>
 
       <body
