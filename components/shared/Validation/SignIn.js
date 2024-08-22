@@ -24,7 +24,7 @@ const rubikBold = Rubik({
   weight: ['700'],
 })
 
-const SignIn = ({setShowSignIn}) => {
+const SignIn = ({setShowSignIn, setShowAuth}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showError, setShowError] = useState(false)
@@ -46,6 +46,7 @@ const SignIn = ({setShowSignIn}) => {
         const resp = await StoreUser(userData)
 
         if(resp){
+          setUser(userData)
           setShowSuccess(true);
         }
         else{
@@ -69,6 +70,7 @@ const SignIn = ({setShowSignIn}) => {
     if(showSuccess){
       const timeout = setTimeout(() => {
         setShowSuccess(false)
+        setShowAuth(false)
       }, 3000)
       fetchData();
       return () => clearTimeout(timeout)

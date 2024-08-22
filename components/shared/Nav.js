@@ -219,19 +219,23 @@ const Nav = () => {
         }*/
         setCurrentUser(await GetUser())
         setAuthed(true)
+        setShowAuth(false)
         setUser(getCurrentUser())
 
       } catch (error) {
         console.log('Crashed outside')
       }
     }
+    async function refreshUser(){
+      setUser(getCurrentUser())
+    }
     /*fetchData2()*/
     if (getCurrentUser() == null) {
       fetchData()
     } else {
-      setAuthed(true)
+      refreshUser()
     }
-  }, [authed])
+  }, [authed, showAuth])
 
   const handleLogout = (e) => {
     setAuthed(false)
@@ -241,11 +245,11 @@ const Nav = () => {
 
   return (
     <>
-      <div className={'z-50 flex flex-col'}>
+      <div className={'flex flex-col'}>
         {/*Normal nav*/}
         <div
           className={
-            ' my-auto flex h-20 w-full flex-row items-center justify-between bg-primary pl-4 pr-4'
+            ' my-auto flex h-20 w-full z-50 flex-row items-center justify-between bg-primary pl-4 pr-4'
           }>
           {/*Logo*/}
           <div>
@@ -351,7 +355,7 @@ const Nav = () => {
 
         {/*drop down of profile click*/}
         <div
-          className={`${profilePicClicked ? 'block' : 'hidden'} absolute right-0 top-16 mt-1 flex flex-row justify-end bg-transparent ${rubikSemiBold.variable} font-rubik`}>
+          className={`${profilePicClicked ? 'block' : 'hidden'} absolute right-0 z-40 top-16 mt-1 flex flex-row justify-end bg-transparent ${rubikSemiBold.variable} font-rubik`}>
           <div className={'flex w-full flex-col rounded-bl-2xl text-opposite'}>
             <Link
               href={`/profile?id=${id}`}
@@ -359,7 +363,7 @@ const Nav = () => {
               onClick={handleProfileButtonClick}>
               <Button
                 style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary hover:cursor-pointer flex-row flex gap-2'
+                  'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2'
                 }
                 itemComponents={
                   <>
@@ -377,7 +381,7 @@ const Nav = () => {
 
             <Button
               style={
-                'bg-accent/50 p-10 pr-40 hover:bg-secondary hover:cursor-pointer flex-row flex gap-2'
+                'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2'
               }
               itemComponents={
                 <>
@@ -398,7 +402,7 @@ const Nav = () => {
               onClick={handleProfileButtonClick}>
               <Button
                 style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary hover:cursor-pointer flex-row flex gap-2'
+                  'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2'
                 }
                 itemComponents={
                   <>
@@ -420,7 +424,7 @@ const Nav = () => {
               onClick={handleProfileButtonClick}>
               <Button
                 style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
+                  'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
                 }
                 itemComponents={
                   <>
@@ -437,30 +441,33 @@ const Nav = () => {
               />
             </Link>
 
-            <Link href={'/api/auth/logout'}>
-              <Button
-                style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
-                }
-                itemComponents={
-                  <>
-                    <p>Log out</p>{' '}
-                    <Image
-                      src={'/icons/person.png'}
-                      alt={'person image'}
-                      width={20}
-                      height={20}
-                    />
-                  </>
-                }
-                handle={handleLogout}
-              />
-            </Link>
+            {!showAuth && authed &&
+                <Link href={'/api/auth/logout'}>
+                  <Button
+                      style={
+                        'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
+                      }
+                      itemComponents={
+                        <>
+                          <p>Log out</p>{' '}
+                          <Image
+                              src={'/icons/person.png'}
+                              alt={'person image'}
+                              width={20}
+                              height={20}
+                          />
+                        </>
+                      }
+                      handle={handleLogout}
+                  />
+                </Link>
+            }
+
           </div>
         </div>
       </div>
-      {showAuth && !showSignIn ? <SignUp setShowSignIn={setShowSignIn} /> : ''}
-      {showAuth && showSignIn ? <SignIn setShowSignIn={setShowSignIn} /> : ''}
+      {showAuth && !showSignIn ? <SignUp setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} /> : ''}
+      {showAuth && showSignIn ? <SignIn setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} /> : ''}
     </>
   )
 }

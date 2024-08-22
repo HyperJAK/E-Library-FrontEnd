@@ -1,4 +1,5 @@
 import axios from "axios";
+import {GetUser} from "@/config/Utilities";
 
 export const ip = 'http://localhost:5227'
 export const apiClient = axios.create({

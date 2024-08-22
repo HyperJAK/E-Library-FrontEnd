@@ -16,7 +16,7 @@ export const verifyUser = async (email, password) => {
     try {
         const verificationObject = {
             'email': email,
-            'password': password
+            'password': await HashPassword(password)
         }
 
         const response = await apiClient.post(`/User/api/verifyUser`, verificationObject);
@@ -29,8 +29,15 @@ export const verifyUser = async (email, password) => {
 };
 
 //this is sign up
-export const createUser = async (newUser) => {
+export const createUser = async (username, email, password) => {
     try {
+        const newUser = {
+            'username': username,
+            'email': email,
+            'password': await HashPassword(password),
+            'timeStamp': new Date().toISOString()
+        }
+
         const response = await apiClient.post('/User/api/create', newUser);
         return response.data;
     } catch (error) {

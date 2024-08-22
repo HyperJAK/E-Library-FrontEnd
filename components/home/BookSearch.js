@@ -59,7 +59,7 @@ const BookSearch = () => {
       {/*Main components parent*/}
       <div
         className={
-          'z-50 mt-[100px] mb-[200px] flex w-full flex-row flex-wrap items-center justify-between '
+          'z-30 mt-[100px] mb-[200px] flex w-full flex-row flex-wrap items-center justify-between '
         }>
         {/*Search and suggestions under it*/}
         <div className={'relative flex flex-col gap-5'}>
