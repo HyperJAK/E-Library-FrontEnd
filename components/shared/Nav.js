@@ -227,10 +227,8 @@ const Nav = () => {
     }
     /*fetchData2()*/
     if (getCurrentUser() == null) {
-      console.log("Entering fetch")
       fetchData()
     } else {
-      console.log("Authed falsed")
       setAuthed(true)
     }
   }, [authed])

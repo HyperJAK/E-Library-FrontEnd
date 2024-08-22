@@ -94,9 +94,7 @@ export function ValidUsername(username) {
 
 export async function StoreUser(userData){
   try{
-    console.log(`Before enc: ${userData}`)
     const encrypted = await EncryptJson(userData)
-    console.log(`After enc: ${encrypted}`)
     localStorage.setItem('user', encrypted);
     return true;
   }catch(e){
