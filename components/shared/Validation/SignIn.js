@@ -1,13 +1,10 @@
-import {useState} from 'react'
+'use client'
+import {useEffect, useState} from 'react'
 
 import {
   ValidEmail,
   ValidPassword,
-  SignUpFunc,
-  EncryptPassword,
-  ValidUsername,
-  HashPassword,
-  SignInFunc,
+  HashPassword, GetUser, StoreUser,
 } from '@/config/Utilities'
 import EmailTextfield from '@/components/shared/Validation/EmailTextfield'
 import PasswordTextfield from '@/components/shared/Validation/PasswordTextfield'
@@ -17,6 +14,9 @@ import Title from '@/components/shared/Title'
 import Image from 'next/image'
 import {Rubik} from 'next/font/google'
 import AuthRegister from '@/components/shared/Validation/AuthRegister'
+import {handleVerifyUser} from "@/config/API/user/userService";
+import ErrorNotification from "@/components/shared/ErrorNotification";
+import SuccessNotification from "@/components/shared/SuccessNotification";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -27,8 +27,10 @@ const rubikBold = Rubik({
 const SignIn = ({setShowSignIn}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isHovered, setIsHovered] = useState(false)
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [user, setUser] = useState('')
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
@@ -37,53 +39,60 @@ const SignIn = ({setShowSignIn}) => {
   const handleSignIn = async (e) => {
     e.preventDefault()
 
-    if (ValidEmail(email) && ValidPassword(password)) {
-      console.log('Passed validation')
-      try {
-        console.log('Password (before hashing):', password)
+    try{
+      const userData= await handleVerifyUser(email, password)
+      if(userData != null){
+        //insert here code to save userData somewhere
+        const resp = await StoreUser(userData)
 
-        const hashedPass = await HashPassword({password})
-
-        console.log('Password (after hashing): ' + hashedPass)
-
-        try {
-          // Assuming setUser and setCurrentScreen are defined elsewhere
-          const response = await SignInFunc({email, password: hashedPass})
-          console.log('Signup successful!') // Log success for debugging
-        } catch (error) {
-          // Handle specific errors (if possible)
-          if (
-            error.response &&
-            error.response.data &&
-            error.response.data.error
-          ) {
-            alert(error.response.data.error) // Display specific error message
-          } else {
-            alert('An unexpected error occurred. Please try again later.') // Generic error message
-          }
-          console.error('Signin failed:', error) // Log the entire error for debugging
+        if(resp){
+          setShowSuccess(true);
         }
-      } catch (error) {
-        console.error('Error encrypting password:', error) // Log encryption error
-        alert(
-          'An unexpected error occurred during signup. Please try again later.'
-        ) // Generic error message
+        else{
+          setShowError(true);
+        }
+
       }
-    } else {
-      // Handle invalid form data (improve error messages as needed)
-      alert('Please enter valid email, and password.')
+
+    }catch (error){
+      //here insert code to show error message box maybe
+      setShowError(true);
     }
+
   }
 
-  const handleRegistring = (e) => {
-    e.preventDefault()
-  }
+  useEffect(() => {
+    async function fetchData(){
+      setUser(await GetUser())
+    }
+
+    if(showSuccess){
+      const timeout = setTimeout(() => {
+        setShowSuccess(false)
+      }, 3000)
+      fetchData();
+      return () => clearTimeout(timeout)
+    }
+    if(showError){
+      const timeout = setTimeout(() => {
+        setShowError(false)
+      }, 3000)
+      return () => clearTimeout(timeout)
+    }
+
+  }, [showError, showSuccess])
 
   return (
     <div
       className={
         'relative flex flex-col items-center justify-center gap-10 rounded-bl-2xl rounded-br-2xl border-2 border-secondary bg-page p-6 align-middle'
       }>
+      {showError && (
+          <ErrorNotification message={"Wrong credentials or non existent user"}/>
+      )}
+      {showSuccess && (
+          <SuccessNotification message={`Welcome, ${user.username}`}/>
+      )}
       <div className={'absolute bottom-0 right-0'}>
         <Image
           src={'/signin.png'}

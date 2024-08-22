@@ -11,7 +11,7 @@ const roboto_slab = Roboto_Slab({
 const ErrorNotification = ({message}) => {
   return (
     <div
-      className={`duration-2000 absolute left-[25%] top-40 z-30 mx-auto flex w-auto items-center justify-center rounded-2xl bg-red-600 p-5 text-center transition-all sm:left-[44%] sm:top-20`}>
+      className={`duration-2000 absolute left-[-20%] top-0 z-30 mx-auto flex w-auto items-center self-center justify-center rounded-2xl bg-red-600 p-5 text-center transition-all sm:left-[44%] sm:top-20`}>
       <div className={`text-white ${roboto_slab.variable} font-robotoSlab`}>
         {message ? message : 'Error'}
       </div>

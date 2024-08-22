@@ -1,3 +1,5 @@
+import {AES, enc} from 'crypto-js'
+
 export function ValidAlphaInput(input) {
   const inputRegex = /^[a-zA-Z]+$/
   const isValid = inputRegex.test(input)
@@ -5,16 +7,46 @@ export function ValidAlphaInput(input) {
   return isValid
 }
 
-export async function HashPassword({password}) {
+export async function HashPassword(password) {
   const Hashes = require('jshashes')
   try {
     // Hash password using SHA-256
     const SHA256 = new Hashes.SHA256().hex(password)
-    return SHA256
+    return SHA256.toString()
   } catch (error) {
     console.error('Error hashing password with jshashes:', error)
     throw error
   }
+}
+
+export async function EncryptJson(objectData) {
+  const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY
+
+  const plaintext = JSON.stringify(objectData)
+
+  console.log('Pass to encrypt: ' + plaintext)
+  console.log('Enc key' + encryptionKey)
+
+  // Encrypt id
+  try {
+    const encPass = await AES.encrypt(plaintext, "Yesitsme").toString()
+    console.log('Passed encryption with pass: ' + encPass)
+    return encPass
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function DecryptJson(objectData) {
+  const encryptionKey = process.env.REACT_APP_ENCRYPTION_KEY
+
+  const plaintext = objectData
+
+  // Decrypt, yes it was hardcoded because .env was not working for some absolute unknown reason
+  const bytes = await AES.decrypt(plaintext, "Yesitsme")
+  const decryptedText = bytes.toString(enc.Utf8)
+
+  return JSON.parse(decryptedText)
 }
 
 export function ValidPassword(pass) {
@@ -57,4 +89,30 @@ export function ValidUsername(username) {
   }
 
   return true
+}
+
+
+export async function StoreUser(userData){
+  try{
+    console.log(`Before enc: ${userData}`)
+    const encrypted = await EncryptJson(userData)
+    console.log(`After enc: ${encrypted}`)
+    localStorage.setItem('user', encrypted);
+    return true;
+  }catch(e){
+    console.log("failed to save user data to localstorage")
+    return false;
+  }
+
+}
+
+export async function GetUser(){
+  const user = localStorage.getItem('user');
+  const decrypted = await DecryptJson(user)
+
+  return decrypted;
+}
+
+export function RemoveUser(){
+  localStorage.removeItem('user');
 }

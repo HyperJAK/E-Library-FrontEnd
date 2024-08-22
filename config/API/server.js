@@ -7,3 +7,13 @@ export const apiClient = axios.create({
         'Content-Type': 'application/json',
     },
 });
+
+let currentUser = null
+
+export function setCurrentUser(object) {
+    currentUser = object
+}
+
+export function getCurrentUser() {
+    return currentUser
+}

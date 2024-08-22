@@ -19,7 +19,7 @@ const PasswordTextfield = ({props}) => {
 
   return (
     <Form.Control
-      className="w-full rounded-2xl border border-secondary bg-accent px-3 py-2 text-[0.5rem] focus:outline-none focus:ring-1 focus:ring-blue-500 lg:text-[1rem]"
+      className="w-full rounded-2xl text-primary border border-secondary bg-accent px-3 py-2 text-[0.5rem] focus:outline-none focus:ring-1 focus:ring-blue-500 lg:text-[1rem]"
       type={showPassword ? 'text' : 'Password'}
       placeholder={title ? title : 'Password'}
       value={password}

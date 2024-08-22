@@ -1,4 +1,5 @@
 import {apiClient} from '../server'
+import {HashPassword} from "@/config/Utilities";
 
 export const getUserById = async (id) => {
     try {
@@ -10,6 +11,24 @@ export const getUserById = async (id) => {
     }
 };
 
+//this is sign in
+export const verifyUser = async (email, password) => {
+    try {
+        const verificationObject = {
+            'email': email,
+            'password': password
+        }
+
+        const response = await apiClient.post(`/User/api/verifyUser`, verificationObject);
+        return response.data;
+
+    } catch (error) {
+        console.error(`Wrong credentials or user doesnt exist`, error);
+        throw error;
+    }
+};
+
+//this is sign up
 export const createUser = async (newUser) => {
     try {
         const response = await apiClient.post('/User/api/create', newUser);

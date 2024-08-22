@@ -1,4 +1,20 @@
-import { getUserById, createUser, updateUser, deleteUser } from './userRequest';
+import {getUserById, createUser, updateUser, deleteUser, verifyUser} from './userRequest';
+import {ValidEmail, ValidPassword} from "@/config/Utilities";
+
+export const handleVerifyUser = async (email, password) => {
+    try {
+        if(ValidEmail(email) && ValidPassword(password)){
+            const user = await verifyUser(email, password);
+            return user;
+        }
+        else{
+            console.error('Email or password empty');
+            return null;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
 
 export const handleCreateUser = async (newUser) => {
     try {

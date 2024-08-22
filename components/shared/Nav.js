@@ -36,10 +36,8 @@ import {useEffect, useState} from 'react'
 import SignUp from '@/components/shared/Validation/SignUp'
 import Title from '@/components/shared/Title'
 import SignIn from '@/components/shared/Validation/SignIn'
-import {HashPassword} from '@/config/Utilities'
+import {GetUser, HashPassword, RemoveUser} from '@/config/Utilities'
 import {
-  currentCartId,
-  currentUserId,
   getCurrentCartId,
   getCurrentUserId,
   setCurrentCartId,
@@ -50,6 +48,7 @@ import {
   CheckUserCartStatus,
   GetAllActiveCartItems,
 } from '@/config/API/cart/cartRequest'
+import {currentUser, getCurrentUser, setCurrentUser, user} from "@/config/API/server";
 
 const rubikRegular = Rubik({
   subsets: ['latin'],
@@ -77,6 +76,7 @@ const Nav = () => {
   const [id, setId] = useState(-1)
   const [showAuth, setShowAuth] = useState(false)
   const [authed, setAuthed] = useState(false)
+  const [user, setUser] = useState('')
 
   const [showSignIn, setShowSignIn] = useState(false)
 
@@ -165,8 +165,9 @@ const Nav = () => {
     }*/
 
     async function fetchData() {
+      //the section inside this is responsible of getting user data if he signed in using external source (google)
       try {
-        const response = await fetch(`http://localhost:3000/api/auth/me`)
+        /*const response = await fetch(`http://localhost:3000/api/auth/me`)
 
         const data = await response.json()
         console.log('The auth email is: ' + data.email)
@@ -215,23 +216,28 @@ const Nav = () => {
             console.log(error)
             console.log('Crashed inside')
           }
-        }
+        }*/
+        setCurrentUser(await GetUser())
+        setAuthed(true)
+        setUser(getCurrentUser())
+
       } catch (error) {
         console.log('Crashed outside')
       }
     }
     /*fetchData2()*/
-    if (getCurrentUserId() === null) {
+    if (getCurrentUser() == null) {
+      console.log("Entering fetch")
       fetchData()
     } else {
+      console.log("Authed falsed")
       setAuthed(true)
-      setId(getCurrentUserId)
     }
-  }, [])
+  }, [authed])
 
   const handleLogout = (e) => {
     setAuthed(false)
-    setCurrentUserId(null)
+    RemoveUser()
     setCurrentCartId(null)
   }
 
