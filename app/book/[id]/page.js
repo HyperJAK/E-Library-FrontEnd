@@ -135,14 +135,18 @@ export default function SpecificBook({params}) {
                 {/*type*/}
                 <p>Type: <span className={'text-secondary'}>{bookDetails.type ?? 'Physical'}</span></p>
                 {/*languages*/}
-                <p>Languages: </p>
-                {bookDetails.languages &&
-                    bookDetails.languages.map((language) => {
-                        return (
-                            <p key={language.id}><span className={'text-secondary'}>{language.type}</span>, </p>
-                        );
-                    })
-                }
+                <p>Languages:
+                    {bookDetails.languages &&
+                        bookDetails.languages.map((language) => {
+                            return (
+                                <span key={language.id}><span className={'text-secondary'}>{language.type}</span>
+                                    {language.id !== bookDetails.languages[bookDetails.languages.length - 1].id? ', ':''}
+                                </span>
+                            );
+                        })
+                    }
+                </p>
+
 
                 {/*publishing date*/}
                 <p>Publishing Date: <span className={'text-secondary'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
