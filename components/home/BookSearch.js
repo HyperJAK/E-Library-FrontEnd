@@ -105,7 +105,7 @@ const BookSearch = () => {
               bookSuggestions.map((suggestion) => {
                 return (
                   <Link
-                    href={`/recipes/${suggestion.id}?id=${suggestion.id}`}
+                    href={`/book/${suggestion.id}?id=${suggestion.id}`}
                     key={suggestion.id}
                     target="_blank"
                     rel="noopener noreferrer">
