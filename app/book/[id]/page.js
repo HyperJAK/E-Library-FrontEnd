@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react'
 
 import Rating from '@/components/shared/Rating'
 import {Rubik} from 'next/font/google'
+import {fetchBook, fetchBookSuggestions} from "@/config/API/book/bookService";
 
 
 const rubikBold = Rubik({
@@ -21,9 +22,6 @@ const rubikRegular = Rubik({
 export default function SpecificBook({params}) {
 
     const [bookDetails, setBookDetails] = useState('')
-    const [bookAuthor, setBookAuthor] = useState([])
-    const [recipeReviews, setRecipeReviews] = useState([])
-    const [detailsHovered, setDetailsHovered] = useState(false)
 
     const BookInfoDiv = () => {
         return (
@@ -36,7 +34,7 @@ export default function SpecificBook({params}) {
                     <div className={'flex flex-row flex-nowrap justify-between gap-2'}>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            Written by: {bookAuthor.firstName ?? 'unknown'} {bookAuthor.lastName ?? 'unknown'}
+                            Written by: {bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}
                         </div>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
@@ -47,7 +45,7 @@ export default function SpecificBook({params}) {
                         {
                             bookDetails.type === 'Digital' ? (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                                    {bookDetails.fileSize ?? '30'}MB
+                                    {bookDetails.fileSizeInMB ?? '30'}MB
                                 </div>
                             ) : (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
@@ -85,6 +83,26 @@ export default function SpecificBook({params}) {
         );
     }
 
+    const ButtonsChoiceDiv = () => {
+        return (
+            <div className={'flex flex-row flex-nowrap justify-center gap-2'}>
+                <Button
+                    style={
+                        'justify-center w-[40%] flex text-[0.9rem] flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
+                    }
+                    itemComponents={<p>Borrow Book</p>}
+                    handle={''}
+                />
+                <Button
+                    style={
+                        'justify-center w-[40%] flex flex-row text-[0.9rem]  border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
+                    }
+                    itemComponents={<p>Share Book</p>}
+                    handle={copyToClipboard}
+                />
+            </div>
+        )
+    }
     const BookDescription = () => {
         const [isExpanded, setIsExpanded] = useState(false);
 
@@ -110,27 +128,6 @@ export default function SpecificBook({params}) {
             </div>
         );
     };
-    const ButtonsChoiceDiv = () => {
-        return (
-            <div className={'flex flex-row flex-nowrap justify-center gap-36'}>
-                <Button
-                    style={
-                        'justify-center w-[40%] flex flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-opposite'
-                    }
-                    itemComponents={<p>Save Recipe</p>}
-                    handle={''}
-                />
-                <Button
-                    style={
-                        'justify-center w-[40%] flex flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-opposite'
-                    }
-                    itemComponents={<p>Share Recipe</p>}
-                    handle={''}
-                />
-            </div>
-        )
-    }
-
     const BookDetailsSection1 = () => {
         return (
             <div className={'flex flex-col flex-nowrap'}>
@@ -138,6 +135,14 @@ export default function SpecificBook({params}) {
                 {/*type*/}
                 <p>Type: <span className={'text-secondary'}>{bookDetails.type ?? 'Physical'}</span></p>
                 {/*languages*/}
+                <p>Languages: </p>
+                {bookDetails.languages &&
+                    bookDetails.languages.map((language) => {
+                        return (
+                            <p key={language.id}><span className={'text-secondary'}>{language.type}</span>, </p>
+                        );
+                    })
+                }
 
                 {/*publishing date*/}
                 <p>Publishing Date: <span className={'text-secondary'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
@@ -145,7 +150,18 @@ export default function SpecificBook({params}) {
                 <p>Author: <span className={'text-secondary'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
 
                 {/*genres*/}
+                <p>Genres:
+                    {bookDetails.genres &&
+                        bookDetails.genres.map((genre) => {
+                            return (
+                                <span key={genre.id}><span className={'text-secondary'}> {genre.type}</span>
+                                    {genre.id !== bookDetails.genres[bookDetails.genres.length - 1].id? ', ':''}
+                                </span>
+                            );
+                        })
+                    }
 
+                </p>
 
             </div>
         )
@@ -170,32 +186,82 @@ export default function SpecificBook({params}) {
 
 
                 {/*tags*/}
+                <p>
+                    Tags:
+                    {bookDetails.tags &&
+                        bookDetails.tags.map((tag) => {
+                            return (
+                                <span key={tag.id}><span className={'text-secondary'}> {tag.type}</span>
+                                    {tag.id !== bookDetails.tags[bookDetails.tags.length - 1].id? ', ':''}
+                                </span>
+                            );
+                        })
+                    }
+                </p>
+
 
 
 
                 {/*formats if digital / physical location in library if regular*/}
                 {
                     bookDetails.type === 'Digital' ? (
-                        <p>here we should look and put formats using (map)</p>
+                        <p>
+                            Formats:
+                            {bookDetails.formats && bookDetails.formats.length > 0 ? (
+                                bookDetails.formats.map((format) => (
+                                    <span key={format.id}>
+                                        <span className="text-secondary"> {format.type}</span>
+                                        {format.id !== bookDetails.formats[bookDetails.formats.length - 1].id? ', ':''}
+                                    </span>
+                                ))
+                            ) : (
+                                <span>No formats available</span>
+                            )}
+                        </p>
                     ) : (
-                        <p>Location: <span className={'text-secondary'}>Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} - Section: {bookDetails.physicalBookLocation?.section ?? 'B'} - Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}</span></p>
+                        <p>
+                            Location:
+                            <span className="text-secondary">
+                                Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} -
+                                Section: {bookDetails.physicalBookLocation?.section ?? 'B'} -
+                                Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}
+                            </span>
+                        </p>
                     )
                 }
+
 
             </div>
         )
     }
 
 
+    const copyToClipboard = () => {
+        const link = window.location.href;
+        navigator.clipboard.writeText(link)
+    };
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
         const id = urlParams.get('id')
-        console.log('Recipe id is: ' + id)
+        console.log('book id is: ' + id)
 
         async function fetchData() {
+            try {
+                const data = await fetchBook(id)
 
+                if (data) {
+                    setBookDetails(data)
+                } else {
+                    setBookDetails([])
+                }
+
+            } catch (error) {}
         }
-        fetchData()
+
+        if (bookDetails !== []) {
+            fetchData()
+        }
     }, [])
 
     return (
@@ -208,7 +274,11 @@ export default function SpecificBook({params}) {
                             'flex w-[90%] flex-row flex-wrap rounded-2xl bg-accent p-10'
                         }>
                         {/*picture div*/}
-                        <BookPic />
+                        <div className={'flex flex-col gap-2'}>
+                            <BookPic />
+                            <ButtonsChoiceDiv />
+                        </div>
+
 
                         <div className={'flex flex-col flex-nowrap gap-2'}>
                             {/*Book info div*/}

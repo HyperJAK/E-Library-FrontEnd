@@ -21,13 +21,10 @@ export const fetchAndFormatBooks = async () => {
     }
 };
 
-export const fetchBookWithSummary = async (id) => {
+export const fetchBook = async (id) => {
     try {
         const book = await getBookById(id);
-        return {
-            ...book,
-            summary: `${book.title} by ${book.author} is a ${book.genre} book published on ${new Date(book.publishedDate).toLocaleDateString()}.`,
-        };
+        return book;
     } catch (error) {
         console.error('Error fetching book with summary:', error);
         throw error;
@@ -55,7 +52,6 @@ export const handleUpdateBook = async (updatedBook) => {
         if (!updatedBook.id) {
             throw new Error('Book ID is required for updating');
         }
-
 
         const response = await updateBook(updatedBook);
         return response;
