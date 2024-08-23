@@ -130,7 +130,7 @@ export default function SpecificBook({params}) {
     };
     const BookDetailsSection1 = () => {
         return (
-            <div className={'flex flex-col flex-nowrap'}>
+            <div className={'flex flex-col flex-nowrap max-w-[400px]'}>
 
                 {/*type*/}
                 <p>Type: <span className={'text-secondary'}>{bookDetails.type ?? 'Physical'}</span></p>
@@ -139,7 +139,7 @@ export default function SpecificBook({params}) {
                     {bookDetails.languages &&
                         bookDetails.languages.map((language) => {
                             return (
-                                <span key={language.id}><span className={'text-secondary'}>{language.type}</span>
+                                <span key={language.id}><span className={'text-secondary'}> {language.type}</span>
                                     {language.id !== bookDetails.languages[bookDetails.languages.length - 1].id? ', ':''}
                                 </span>
                             );
@@ -154,7 +154,7 @@ export default function SpecificBook({params}) {
                 <p>Author: <span className={'text-secondary'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
 
                 {/*genres*/}
-                <p>Genres:
+                <p className={'max-w-[400px]'}>Genres:
                     {bookDetails.genres &&
                         bookDetails.genres.map((genre) => {
                             return (
@@ -225,7 +225,7 @@ export default function SpecificBook({params}) {
                     ) : (
                         <p>
                             Location:
-                            <span className="text-secondary">
+                            <span className="text-secondary">{' '}
                                 Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} -
                                 Section: {bookDetails.physicalBookLocation?.section ?? 'B'} -
                                 Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}
