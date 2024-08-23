@@ -19,11 +19,7 @@ const rubikRegular = Rubik({
 })
 
 export default function SpecificBook({params}) {
-    /*if (!recipe) {
-      // Handle the case where no recipe data was found (optional)
-      return <p>Recipe not found!</p>
-    }*/
-    const [bookInfo, setBookInfo] = useState('')
+
     const [bookDetails, setBookDetails] = useState('')
     const [bookAuthor, setBookAuthor] = useState([])
     const [recipeReviews, setRecipeReviews] = useState([])
@@ -34,34 +30,34 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-row flex-wrap self-start'}>
                 {/*We use a fetch in this component to get the user info so like username*/}
                 <div className={'flex flex-col flex-wrap justify-start m-auto items-start gap-1'}>
-                    <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} font-rubik text-[1.4rem]`}><span className={`${rubikBold.variable} font-rubik text-[2.5rem]`}>Harry potter{bookInfo.title}</span>  -  {bookInfo.publishingDate}2023-01-02
+                    <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} font-rubik text-[1.4rem]`}><span className={`${rubikBold.variable} font-rubik text-[2.5rem]`}>{bookDetails.title ?? 'Harry potter'}</span>  -  {bookDetails.publishingDate ?? '2023-01-02'}
 
                     </p>
                     <div className={'flex flex-row flex-nowrap justify-between gap-2'}>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            Written by: {bookAuthor.firstName} {bookAuthor.lastName}John Doe
+                            Written by: {bookAuthor.firstName ?? 'unknown'} {bookAuthor.lastName ?? 'unknown'}
                         </div>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            {bookInfo.type}Physical
+                            {bookDetails.type ?? 'Physical'}
                         </div>
 
                         {/*This can be count if its regular or file size if its digital*/}
                         {
-                            bookInfo.type === 'Digital' ? (
+                            bookDetails.type === 'Digital' ? (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                                    {bookInfo.fileSize}30 MB
+                                    {bookDetails.fileSize ?? '30'}MB
                                 </div>
                             ) : (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                                    {bookInfo.physicalBookCount}30 Books
+                                    {bookDetails.physicalBookCount ?? '30'} Books
                                 </div>
                             )
                         }
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            {bookInfo.pageCount} 220 Pages
+                            {bookDetails.pageCount ?? '220'} Pages
                         </div>
 
                     </div>
@@ -78,7 +74,7 @@ export default function SpecificBook({params}) {
                 {/* Image at the top */}
                 <div className=" border-2 border-primary">
                     <Image
-                        src={bookInfo.coverImageURL?bookInfo.coverImageURL:'/recipeExample.png'}
+                        src={bookDetails.coverImageURL ?? '/recipeExample.png'}
                         alt={'recipe image'}
                         layout="fill"
                         objectFit="cover"
@@ -96,7 +92,7 @@ export default function SpecificBook({params}) {
             setIsExpanded(!isExpanded);
         };
 
-        const description = `The Kingdom of Clays faces a dire crisis: an assassination attempt has just been made on its own Princess Lynneburg, and its neighboring countries eye the aftermath like starving vultures, plotting the Kingdom's downfall. The ensuing conflict will shape the face of the continent for centuries to come...but Noor doesn’t have a clue about any of that! Having freshly arrived at the royal capital after over a decade of rigorous, isolated training at his mountain home, he’s dead set on achieving his childhood dream of becoming an adventurer, even if the only skills he possesses are useless ones. Sure, he can "Parry" thousands of swords in the span of a single breath, but everybody knows you need more than that if you want to be an adventurer! Our hero’s road to making his dream come true will be long(?) and arduous(?)—but if there’s one thing Noor’s not afraid of, it’s some good ol’ fashioned hard work!`;
+        const description = bookDetails.description ?? 'The Kingdom of Clays faces a dire crisis: an assassination attempt has just been made on its own Princess Lynneburg, and its neighboring countries eye the aftermath like starving vultures, plotting the Kingdom\'s downfall. The ensuing conflict will shape the face of the continent for centuries to come...but Noor doesn’t have a clue about any of that! Having freshly arrived at the royal capital after over a decade of rigorous, isolated training at his mountain home, he’s dead set on achieving his childhood dream of becoming an adventurer, even if the only skills he possesses are useless ones. Sure, he can "Parry" thousands of swords in the span of a single breath, but everybody knows you need more than that if you want to be an adventurer! Our hero’s road to making his dream come true will be long(?) and arduous(?)—but if there’s one thing Noor’s not afraid of, it’s some good ol’ fashioned hard work!';
 
         const threshold = 400;
 
@@ -140,13 +136,13 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap'}>
 
                 {/*type*/}
-                <p>Type: <span className={'text-secondary'}>{bookInfo.type}Physical</span></p>
+                <p>Type: <span className={'text-secondary'}>{bookDetails.type ?? 'Physical'}</span></p>
                 {/*languages*/}
 
                 {/*publishing date*/}
-                <p>Publishing Date: <span className={'text-secondary'}>{bookInfo.type}2023-03-01</span></p>
+                <p>Publishing Date: <span className={'text-secondary'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
                 {/*author*/}
-                <p>Author: <span className={'text-secondary'}>{bookInfo.type}Shakespear</span></p>
+                <p>Author: <span className={'text-secondary'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
 
                 {/*genres*/}
 
@@ -160,17 +156,17 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap'}>
 
                 {/*pages count*/}
-                <p>Pages: <span className={'text-secondary'}>{bookInfo.pageCount}300</span></p>
+                <p>Pages: <span className={'text-secondary'}>{bookDetails.pageCount ?? '300'}</span></p>
                 {/*size if digital, or stock if physical*/}
                 {
-                    bookInfo.type === 'Digital' ? (
-                        <p>Size: <span className={'text-secondary'}>{bookInfo.fileSizeInMB}30 MB</span></p>
+                    bookDetails.type === 'Digital' ? (
+                        <p>Size: <span className={'text-secondary'}>{bookDetails.fileSizeInMB ?? '30'}MB</span></p>
                     ) : (
-                        <p>Stock: <span className={'text-secondary'}>{bookInfo.physicalBookCount}30</span></p>
+                        <p>Stock: <span className={'text-secondary'}>{bookDetails.physicalBookCount ?? '30'}</span></p>
                     )
                 }
                 {/*publisher*/}
-                <p>Publisher: <span className={'text-secondary'}>{bookInfo.type}Someone</span></p>
+                <p>Publisher: <span className={'text-secondary'}>{bookDetails.publisher ?? 'Someone'}</span></p>
 
 
                 {/*tags*/}
@@ -179,10 +175,10 @@ export default function SpecificBook({params}) {
 
                 {/*formats if digital / physical location in library if regular*/}
                 {
-                    bookInfo.type === 'Digital' ? (
+                    bookDetails.type === 'Digital' ? (
                         <p>here we should look and put formats using (map)</p>
                     ) : (
-                        <p>Location: <span className={'text-secondary'}>{bookInfo.type} Floor: 2 - Section: B - Shelf: 4</span></p>
+                        <p>Location: <span className={'text-secondary'}>Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} - Section: {bookDetails.physicalBookLocation?.section ?? 'B'} - Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}</span></p>
                     )
                 }
 
@@ -190,97 +186,6 @@ export default function SpecificBook({params}) {
         )
     }
 
-    const NutritionFacts = () => {
-        return (
-            <div
-                className={
-                    'flex flex-col flex-nowrap items-center justify-between gap-10'
-                }>
-                <div
-                    className={`flex flex-col items-center justify-center ${rubikBold.variable} font-rubik text-[2rem]`}>
-                    <h1>Nutrition Facts</h1>
-                    <h1>(Per serving)</h1>
-                </div>
-                <div>
-                    <div
-                        className={
-                            'flex flex-row flex-wrap justify-center gap-10 lg:gap-32'
-                        }>
-                        {InterestData.bottomInfo.map((infoData) => {
-                            return (
-                                <div
-                                    key={infoData.description}
-                                    className={
-                                        'flex h-[180px] w-[180px] min-w-[180px] flex-col items-center justify-evenly rounded-2xl border-2 border-solid border-secondary p-6 text-center align-middle'
-                                    }>
-                                    {/*Icon / Main Text*/}
-                                    <h1 className={'text-2xl text-secondary'}>
-                                        {infoData.dataNb}
-                                    </h1>
-                                    {/*Informative text*/}
-                                    <p className={'text-opposite'}>{infoData.description}</p>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const RecipeReviews = () => {
-        return (
-            <div
-                className={
-                    'flex w-[90%] flex-col flex-nowrap justify-center gap-10 rounded-2xl bg-accent p-10'
-                }>
-                {/*Review count*/}
-                <div
-                    className={`text-center ${rubikBold.variable} font-rubik text-[2rem]`}>
-                    Reviews ({recipeReviews ? recipeReviews.length : ''})
-                </div>
-                {/*filter*/}
-                <div className={'text-right'}>filter here</div>
-                {recipeReviews
-                    ? recipeReviews.map((review, index) => {
-                        return (
-                            <div
-                                className={
-                                    'flex flex-col justify-between gap-2 rounded-3xl border border-b-2 border-b-secondary bg-accent p-10 text-accent'
-                                }
-                                key={index}>
-                                {/*publisher info*/}
-                                <div className={'flex flex-row flex-nowrap'}>
-                                    <Image
-                                        src={/*publisher ? publisher.profilePic : */ ''}
-                                        alt={'profile pic'}
-                                        width={50}
-                                        height={50}
-                                    />
-                                    {/*We use a fetch in this component to get the user info so like username*/}
-                                    <div
-                                        className={
-                                            'flex flex-row flex-wrap justify-center gap-5'
-                                        }>
-                                        <div className={'rounded-full bg-secondary p-3'}>
-                                            {review.username}
-                                        </div>
-                                        <div className={'rounded-full bg-secondary p-3'}>
-                                            {review.email}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={'flex flex-row gap-3'}>
-                                    <Rating rating={review.rating} />
-                                </div>
-                                <div className={'text-opposite'}>{review.description}</div>
-                            </div>
-                        )
-                    })
-                    : ''}
-            </div>
-        )
-    }
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
