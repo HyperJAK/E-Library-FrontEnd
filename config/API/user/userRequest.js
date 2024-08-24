@@ -57,7 +57,6 @@ export const borrowBook = async (userId, bookId) => {
         return response.data;
     } catch (error) {
         console.error('Error creating user:', error);
-        throw error;
     }
 };
 

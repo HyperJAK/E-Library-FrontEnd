@@ -42,12 +42,13 @@ export const handleBorrowBook = async (userId, bookId) => {
             return response;
         }
         else{
-            console.error('Email or password empty');
-            return null;
+            console.error('User or book required');
+            return {
+                "message": "User was not found, please login"
+            }
         }
     } catch (error) {
         console.error('Error creating user:', error);
-        throw error;
     }
 };
 

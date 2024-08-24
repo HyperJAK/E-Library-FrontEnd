@@ -106,9 +106,13 @@ export async function StoreUser(userData){
 
 export async function GetUser(){
   const user = localStorage.getItem('user');
-  const decrypted = await DecryptJson(user)
-
-  return decrypted;
+  if(user != null){
+    const decrypted = await DecryptJson(user)
+    return decrypted;
+  }
+  else {
+    return null
+  }
 }
 
 export function RemoveUser(){

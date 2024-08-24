@@ -97,7 +97,8 @@ export default function SpecificBook({params}) {
 
         const borrowBook = async() => {
             const userId = await GetUser()
-            const response = await handleBorrowBook(userId.id, bookId)
+            const response = await handleBorrowBook(userId?.id, bookId)
+            console.log('Response' + response)
 
             if(response == null){
                 setShowMessage("An unexpected error occurred. Please try again.")
@@ -105,29 +106,13 @@ export default function SpecificBook({params}) {
             }
 
             if (response?.ok) {
-                setShowMessage("Successfully borrowed book")
+                setShowMessage(response?.message)
                 setShowSuccess(true)
                 //we then clear the cache
                 await handleClearCache(bookId)
             } else {
-                switch (response?.status) {
-                    case 431:
-                        setShowMessage("No user found. Please check your user information.")
-                        setShowError(true)
-                        break;
-                    case 432:
-                        setShowMessage("No book found. Please check the book ID.")
-                        setShowError(true)
-                        break;
-                    case 433:
-                        setShowMessage("Subscription needed to borrow this book.")
-                        setShowError(true)
-                        break;
-                    default:
-                        setShowMessage("An unexpected error occurred. Please try again.")
-                        setShowError(true)
-                        break;
-                }
+                setShowMessage(response?.message)
+                setShowError(true)
             }
         }
 
