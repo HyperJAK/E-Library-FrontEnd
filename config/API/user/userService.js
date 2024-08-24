@@ -1,4 +1,4 @@
-import {getUserById, createUser, updateUser, deleteUser, verifyUser} from './userRequest';
+import {getUserById, createUser, updateUser, deleteUser, verifyUser, borrowBook} from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 
 export const handleVerifyUser = async (email, password) => {
@@ -22,6 +22,24 @@ export const handleCreateUser = async (username, email, password) => {
         if (ValidUsername(username) && ValidEmail(email) && ValidPassword(password)) {
             const user = await createUser(username, email, password);
             return user;
+        }
+        else{
+            console.error('Email or password empty');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+};
+
+export const handleBorrowBook = async (userId, bookId) => {
+    try {
+        console.log('User id: ' + userId)
+        console.log('Book id: ' + bookId)
+        if (userId && bookId) {
+            const response = await borrowBook(userId, bookId);
+            return response;
         }
         else{
             console.error('Email or password empty');

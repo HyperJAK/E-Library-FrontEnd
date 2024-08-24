@@ -221,6 +221,7 @@ const Nav = () => {
         setAuthed(true)
         setShowAuth(false)
         setUser(getCurrentUser())
+        setId(getCurrentUser().id)
 
       } catch (error) {
         console.log('Crashed outside')

@@ -56,9 +56,9 @@ export const deleteBook = async (id) => {
 };
 
 
-export const clearBookCache = async () => {
+export const clearBookCache = async (key) => {
     try {
-        const response = await apiClient.delete('/Book/api/clearCache');
+        const response = await apiClient.delete(`/Book/api/clearCache?key=${key}`);
         return response.data;
     } catch (error) {
         console.error('Error clearing book cache:', error);

@@ -5,7 +5,12 @@ import {useEffect, useState} from 'react'
 
 import Rating from '@/components/shared/Rating'
 import {Rubik} from 'next/font/google'
-import {fetchBook, fetchBookSuggestions} from "@/config/API/book/bookService";
+import {fetchBook, fetchBookSuggestions, handleClearCache} from "@/config/API/book/bookService";
+import {handleBorrowBook} from "@/config/API/user/userService";
+import {getCurrentUser} from "@/config/API/server";
+import {GetUser} from "@/config/Utilities";
+import ErrorNotification from "@/components/shared/ErrorNotification";
+import SuccessNotification from "@/components/shared/SuccessNotification";
 
 
 const rubikBold = Rubik({
@@ -22,6 +27,11 @@ const rubikRegular = Rubik({
 export default function SpecificBook({params}) {
 
     const [bookDetails, setBookDetails] = useState('')
+    const [bookId, setBookId] = useState(null)
+
+    const [showError, setShowError] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
+    const [showMessage, setShowMessage] = useState('')
 
     const BookInfoDiv = () => {
         return (
@@ -84,6 +94,44 @@ export default function SpecificBook({params}) {
     }
 
     const ButtonsChoiceDiv = () => {
+
+        const borrowBook = async() => {
+            const userId = await GetUser()
+            const response = await handleBorrowBook(userId.id, bookId)
+
+            if(response == null){
+                setShowMessage("An unexpected error occurred. Please try again.")
+                setShowError(true)
+            }
+
+            if (response?.ok) {
+                setShowMessage("Successfully borrowed book")
+                setShowSuccess(true)
+                //we then clear the cache
+                await handleClearCache(bookId)
+            } else {
+                switch (response?.status) {
+                    case 431:
+                        setShowMessage("No user found. Please check your user information.")
+                        setShowError(true)
+                        break;
+                    case 432:
+                        setShowMessage("No book found. Please check the book ID.")
+                        setShowError(true)
+                        break;
+                    case 433:
+                        setShowMessage("Subscription needed to borrow this book.")
+                        setShowError(true)
+                        break;
+                    default:
+                        setShowMessage("An unexpected error occurred. Please try again.")
+                        setShowError(true)
+                        break;
+                }
+            }
+        }
+
+
         return (
             <div className={'flex flex-row flex-nowrap justify-center gap-2'}>
                 <Button
@@ -91,7 +139,7 @@ export default function SpecificBook({params}) {
                         'justify-center w-[40%] flex text-[0.9rem] flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
                     }
                     itemComponents={<p>Borrow Book</p>}
-                    handle={''}
+                    handle={borrowBook}
                 />
                 <Button
                     style={
@@ -239,7 +287,6 @@ export default function SpecificBook({params}) {
         )
     }
 
-
     const copyToClipboard = () => {
         const link = window.location.href;
         navigator.clipboard.writeText(link)
@@ -248,6 +295,7 @@ export default function SpecificBook({params}) {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
         const id = urlParams.get('id')
+        setBookId(id)
         console.log('book id is: ' + id)
 
         async function fetchData() {
@@ -262,16 +310,41 @@ export default function SpecificBook({params}) {
 
             } catch (error) {}
         }
+        async function resetMessageBoxes(){
+            if(showSuccess){
+                const timeout = setTimeout(() => {
+                    setShowSuccess(false)
+                }, 3000)
+                //we fetch data again because now the book remaining amount should be down by 1
+                await fetchData();
+                return () => clearTimeout(timeout)
+            }
+            if(showError){
+                const timeout = setTimeout(() => {
+                    setShowError(false)
+                }, 3000)
+                return () => clearTimeout(timeout)
+            }
+        }
+
+        resetMessageBoxes()
 
         if (bookDetails !== []) {
             fetchData()
         }
-    }, [])
+    }, [showError, showSuccess, showMessage])
 
     return (
         <>
 
-                <main className="flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
+                <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
+
+                    {showError && (
+                        <ErrorNotification message={showMessage}/>
+                    )}
+                    {showSuccess && (
+                        <SuccessNotification message={showMessage}/>
+                    )}
                     {/*Main div*/}
                     <div
                         className={

@@ -46,6 +46,21 @@ export const createUser = async (username, email, password) => {
     }
 };
 
+export const borrowBook = async (userId, bookId) => {
+    try {
+        const requestData = {
+            'userId': userId,
+            'bookId': bookId
+        }
+
+        const response = await apiClient.post('/User/api/borrowBook', requestData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+};
+
 export const updateUser = async (updatedUser) => {
     try {
         const response = await apiClient.put('/User/api/update', updatedUser);

@@ -67,20 +67,26 @@ const SignIn = ({setShowSignIn, setShowAuth}) => {
       setUser(await GetUser())
     }
 
-    if(showSuccess){
-      const timeout = setTimeout(() => {
-        setShowSuccess(false)
-        setShowAuth(false)
-      }, 3000)
-      fetchData();
-      return () => clearTimeout(timeout)
+    function resetMessageBoxes(){
+      if(showSuccess){
+        const timeout = setTimeout(() => {
+          setShowSuccess(false)
+          setShowAuth(false)
+        }, 3000)
+        fetchData();
+        return () => clearTimeout(timeout)
+      }
+      if(showError){
+        const timeout = setTimeout(() => {
+          setShowError(false)
+        }, 3000)
+        return () => clearTimeout(timeout)
+      }
     }
-    if(showError){
-      const timeout = setTimeout(() => {
-        setShowError(false)
-      }, 3000)
-      return () => clearTimeout(timeout)
-    }
+
+    resetMessageBoxes()
+
+
 
   }, [showError, showSuccess])
 

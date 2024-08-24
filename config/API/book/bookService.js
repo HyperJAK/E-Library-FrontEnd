@@ -79,9 +79,10 @@ export const handleDeleteBook = async (id) => {
 };
 
 
-export const handleClearCache = async () => {
+export const handleClearCache = async (bookId) => {
     try {
-        const response = await clearBookCache();
+        const key = `Book_${bookId}`
+        const response = await clearBookCache(key);
         return response;
     } catch (error) {
         console.error('Error clearing book cache:', error);
