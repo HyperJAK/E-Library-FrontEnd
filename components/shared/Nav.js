@@ -217,11 +217,16 @@ const Nav = () => {
             console.log('Crashed inside')
           }
         }*/
-        setCurrentUser(await GetUser())
-        setAuthed(true)
-        setShowAuth(false)
-        setUser(getCurrentUser())
-        setId(getCurrentUser().id)
+        const u = await GetUser()
+
+        if(u != null){
+          setCurrentUser(u)
+          setAuthed(true)
+          setShowAuth(false)
+          setUser(getCurrentUser())
+          setId(getCurrentUser().id)
+        }
+
 
       } catch (error) {
         console.log('Crashed outside')
