@@ -1,14 +1,13 @@
 'use client'
 import {useEffect, useState} from 'react'
 import {Rubik} from 'next/font/google'
-import Button from '@/components/shared/Button'
 import UserInformation from '@/components/profile/UserInformation'
 import MainTopIntroduction from '@/components/profile/MainTopIntroduction'
 import UserProfilePicDiv from '@/components/profile/UserProfilePicDiv'
 import ResidentialInformation from '@/components/profile/ResidentialInformation'
 import AboutMe from '@/components/profile/AboutMe'
 import CreditCardInfo from '@/components/profile/CreditCardInfo'
-import {GetUserInfo} from '@/config/services/user'
+import {handleGetUserById} from "@/config/API/user/userService";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -31,7 +30,7 @@ export default function Profile({params}) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await GetUserInfo({id: params.id})
+        const response = await handleGetUserById(params.id)
 
         if (response) {
           setData(response)
@@ -42,9 +41,11 @@ export default function Profile({params}) {
         console.error(error)
       }
     }
+    if(data == null){
+      fetchUserData()
+    }
 
-    fetchUserData()
-  }, [])
+  }, [data])
 
   return (
     <>
@@ -70,7 +71,7 @@ export default function Profile({params}) {
                 }>
                 {/*Title*/}
                 <p
-                  className={`${rubikBold.variable} w-full rounded-tl-3xl rounded-tr-3xl bg-backupOppositeOfOpposite p-5 font-rubik text-[2rem] text-opposite`}>
+                  className={`${rubikBold.variable} w-full rounded-tl-3xl rounded-tr-3xl bg-primary p-5 font-rubik text-[2rem] text-opposite`}>
                   Account Settings
                 </p>
                 {/*User Information*/}
@@ -80,13 +81,6 @@ export default function Profile({params}) {
                   allowEdit={allowEdit}
                   setCPassword={setCPassword}
                   cPassword={cPassword}
-                />
-
-                {/*Residential info component*/}
-                <ResidentialInformation
-                  data={data}
-                  setData={setData}
-                  allowEdit={allowEdit}
                 />
 
                 {/*About me info component*/}
@@ -104,7 +98,7 @@ export default function Profile({params}) {
                 />
               </div>
               {/*User pfp and other info*/}
-              <UserProfilePicDiv />
+              <UserProfilePicDiv data={data}/>
             </div>
           </div>
         ) : (

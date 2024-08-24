@@ -3,10 +3,7 @@
 import {Rubik} from 'next/font/google'
 
 //components
-import Image from 'next/image'
 import {useState} from 'react'
-import Button from '@/components/shared/Button'
-import Link from 'next/link'
 import EmailTextfield from '@/components/shared/Validation/EmailTextfield'
 import PasswordTextfield from '@/components/shared/Validation/PasswordTextfield'
 import LabelField from '@/components/shared/LabelField'
@@ -68,10 +65,10 @@ const UserInformation = ({
   return (
     <>
       {/*User information component in profile page*/}
-      <div className={'flex flex-col gap-6 bg-accent p-5'}>
+      <div className={'flex flex-col gap-6 bg-accent p-5 text-primary'}>
         {/*Title of component*/}
         <p
-          className={`${rubikRegular.variable} w-full rounded-full bg-secondary pb-3 pl-5 pt-3 font-rubik text-[1.2rem]`}>
+          className={`${rubikRegular.variable} w-full rounded-full bg-secondary pb-3 pl-5 pt-3 font-rubik text-[1.2rem] text-opposite`}>
           User Information
         </p>
         {/*Fields*/}

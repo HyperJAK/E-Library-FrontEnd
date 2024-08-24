@@ -3,16 +3,9 @@
 import {Rubik} from 'next/font/google'
 
 //components
-import Image from 'next/image'
-import {useState} from 'react'
-import Button from '@/components/shared/Button'
-import Link from 'next/link'
 import EmailTextfield from '@/components/shared/Validation/EmailTextfield'
-import PasswordTextfield from '@/components/shared/Validation/PasswordTextfield'
 import LabelField from '@/components/shared/LabelField'
-import DatePicker from 'react-datepicker'
 import {TuiDatePicker} from 'nextjs-tui-date-picker'
-import {red} from 'next/dist/lib/picocolors'
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -75,11 +68,11 @@ const CreditCardInfo = ({data, setData, allowEdit}) => {
       {/*User information component in profile page*/}
       <div
         className={
-          'flex flex-col gap-6 rounded-bl-3xl rounded-br-3xl bg-accent p-5'
+          'flex flex-col gap-6 rounded-bl-3xl rounded-br-3xl bg-accent p-5 text-primary'
         }>
         {/*Title of component*/}
         <p
-          className={`${rubikRegular.variable} w-full rounded-full bg-secondary pb-3 pl-5 pt-3 font-rubik text-[1.2rem]`}>
+          className={`${rubikRegular.variable} w-full rounded-full bg-secondary pb-3 pl-5 pt-3 font-rubik text-[1.2rem] text-opposite`}>
           Credit Card Info
         </p>
         {/*Fields*/}

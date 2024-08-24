@@ -3,12 +3,7 @@
 import {Rubik} from 'next/font/google'
 
 //components
-import Image from 'next/image'
-import {useState} from 'react'
-import Button from '@/components/shared/Button'
-import Link from 'next/link'
 import EmailTextfield from '@/components/shared/Validation/EmailTextfield'
-import PasswordTextfield from '@/components/shared/Validation/PasswordTextfield'
 import LabelField from '@/components/shared/LabelField'
 
 const rubikBold = Rubik({

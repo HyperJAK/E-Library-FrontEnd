@@ -6,7 +6,6 @@ import {Rubik} from 'next/font/google'
 import {useState} from 'react'
 import Button from '@/components/shared/Button'
 import {HashPassword} from '@/config/Utilities'
-import {UpdateProfile} from '@/config/services/user'
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -118,7 +117,7 @@ const MainTopIntroduction = ({
             }))
           }
 
-          await UpdateProfile({data})
+         /* await UpdateProfile({data})*/
         } catch (error) {}
       }
     }
