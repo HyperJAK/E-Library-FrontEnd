@@ -105,7 +105,7 @@ export default function SpecificBook({params}) {
                 setShowError(true)
             }
 
-            if (response?.ok) {
+            if (response?.ok && response.status === 200) {
                 setShowMessage(response?.message)
                 setShowSuccess(true)
                 //we then clear the cache
@@ -321,50 +321,56 @@ export default function SpecificBook({params}) {
 
     return (
         <>
+            {
+                bookDetails?  (
+                    <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
 
-                <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
-
-                    {showError && (
-                        <ErrorNotification message={showMessage}/>
-                    )}
-                    {showSuccess && (
-                        <SuccessNotification message={showMessage}/>
-                    )}
-                    {/*Main div*/}
-                    <div
-                        className={
-                            'flex w-[90%] flex-row flex-wrap rounded-2xl bg-accent p-10'
-                        }>
-                        {/*picture div*/}
-                        <div className={'flex flex-col gap-2'}>
-                            <BookPic />
-                            <ButtonsChoiceDiv />
-                        </div>
-
-
-                        <div className={'flex flex-col flex-nowrap gap-2'}>
-                            {/*Book info div*/}
-                            <BookInfoDiv />
-                            {/*Book description here*/}
-                            <BookDescription />
-
-                            <div className={'flex flex-row flex-nowrap gap-10'}>
-                                {/*Book details 1*/}
-                                <BookDetailsSection1 />
-
-                                {/*Book details 2*/}
-                                <BookDetailsSection2 />
+                        {showError && (
+                            <ErrorNotification message={showMessage}/>
+                        )}
+                        {showSuccess && (
+                            <SuccessNotification message={showMessage}/>
+                        )}
+                        {/*Main div*/}
+                        <div
+                            className={
+                                'flex w-[90%] flex-row flex-wrap rounded-2xl bg-accent p-10'
+                            }>
+                            {/*picture div*/}
+                            <div className={'flex flex-col gap-2'}>
+                                <BookPic />
+                                <ButtonsChoiceDiv />
                             </div>
 
 
+                            <div className={'flex flex-col flex-nowrap gap-2'}>
+                                {/*Book info div*/}
+                                <BookInfoDiv />
+                                {/*Book description here*/}
+                                <BookDescription />
+
+                                <div className={'flex flex-row flex-nowrap gap-10'}>
+                                    {/*Book details 1*/}
+                                    <BookDetailsSection1 />
+
+                                    {/*Book details 2*/}
+                                    <BookDetailsSection2 />
+                                </div>
+
+
+                            </div>
+
+
+
+
                         </div>
 
+                    </main>
+                )   :  ('Display a loading div here')
+            }
 
 
 
-                    </div>
-
-                </main>
 
         </>
     )
