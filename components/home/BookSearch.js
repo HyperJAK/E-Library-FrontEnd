@@ -109,14 +109,14 @@ const BookSearch = () => {
                     key={suggestion.id}
                     target="_blank"
                     rel="noopener noreferrer">
-                    <div className="flex cursor-pointer flex-row justify-start gap-2 rounded-2xl p-4 hover:bg-secondary">
+                    <div className="flex cursor-pointer flex-row justify-start items-center gap-2 rounded-2xl p-4 hover:bg-secondary">
                       <Image
                         src={suggestion.share_link ?? '/pot.png'}
                         alt="image"
                         width={30}
                         height={30}
                       />
-                      <p>{suggestion.name}</p>
+                      <p className={'text-primary'}>{suggestion.title}</p>
                     </div>
                   </Link>
                 )
