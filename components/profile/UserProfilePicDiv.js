@@ -33,7 +33,7 @@ const UserProfilePicDiv = ({data}) => {
     setShowBooks(!showBooks)
   }
 
-
+  const threshold = 40;
 
   return (
     <>
@@ -68,11 +68,11 @@ const UserProfilePicDiv = ({data}) => {
                   'flex h-[120px] w-[120px] min-w-[100px] flex-col items-center justify-between rounded-2xl border-2 border-solid border-secondary p-6 text-center align-middle'
                 }>
               {/*Icon / Main Text*/}
-              <h1 className={'text-2xl text-secondary'}>{data.books?.length ?? 'None'}</h1>
+              <h1 className={'text-2xl text-secondary'}>{data.userBooks?.length ?? 'None'}</h1>
               {/*Informative text*/}
               <p className={'text-primary text-[0.8rem]'}>{'Borrowed Books'}</p>
               {
-                  data.books?.length > 0 &&
+                  data.userBooks?.length > 0 &&
                   <Button
                       style={
                         'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-secondary'
@@ -89,26 +89,38 @@ const UserProfilePicDiv = ({data}) => {
               showBooks &&
               <div className={'flex flex-col gap-2 overflow-y-auto max-h-[400px]'}>
                 {
-                  data.books.map((book) => {
+                  data.userBooks.map((userBook) => {
                     return (
                         <Link
-                            href={`/book/${book.id}?id=${book.id}`}
-                            key={book.id}
+                            href={`/book/${userBook.book.id}?id=${userBook.book.id}`}
+                            key={userBook.book.id}
                             target="_blank"
                             rel="noopener noreferrer">
                           <div className="flex cursor-pointer flex-row justify-start gap-2 rounded-2xl p-4 hover:bg-secondary">
                             <div className={'relative w-[30px] h-[30px] self-center'}>
                               <Image
-                                  src={book.CoverImageURL ?? '/pot.png'}
+                                  src={userBook.book.CoverImageURL ?? '/pot.png'}
                                   alt="image"
                                   layout="fill"
                                   objectFit="cover"
                               />
                             </div>
+                            <div className={'flex flex-col gap-1'}>
+                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
+                              <span className={`${rubikBold.variable} text-primary font-rubik text-[1.4rem]`}>
+                                {userBook.book.title?.length > threshold ? `${userBook.book.title.substring(0, threshold)}...` : userBook.book.title ?? 'Harry potter'}
+                              </span>
 
-                            <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}><span className={`${rubikBold.variable} text-primary font-rubik text-[1.4rem]`}>{book.title ?? 'Harry potter'}</span>  -  {book.publishingDate ?? '2023-01-02'}
+                              </p>
 
-                            </p>
+                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
+                                {userBook.book.publishingDate ?? '2023-01-02'}
+                              </p>
+
+
+                            </div>
+
+
 
                           </div>
                         </Link>
