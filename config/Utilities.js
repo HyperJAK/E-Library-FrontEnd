@@ -118,3 +118,30 @@ export async function GetUser(){
 export function RemoveUser(){
   localStorage.removeItem('user');
 }
+
+export async function StoreSessionID(sessionId){
+  try{
+    const encrypted = await EncryptJson(sessionId)
+    localStorage.setItem('sessionid', encrypted);
+    return true;
+  }catch(e){
+    console.log("failed to save session id to localstorage")
+    return false;
+  }
+
+}
+
+export async function GetSessionID(){
+  const id = localStorage.getItem('sessionid');
+  if(id != null){
+    const decrypted = await DecryptJson(id)
+    return decrypted;
+  }
+  else {
+    return null
+  }
+}
+
+export function RemoveSessionID(){
+  localStorage.removeItem('sessionid');
+}

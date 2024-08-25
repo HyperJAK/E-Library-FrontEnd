@@ -1,5 +1,5 @@
 import {apiClient} from '../server'
-import {HashPassword, StoreUser} from "@/config/Utilities";
+import {HashPassword, StoreSessionID, StoreUser} from "@/config/Utilities";
 
 export const getUserById = async (id) => {
     try {
@@ -37,7 +37,13 @@ export const verifyUser = async (email, password) => {
             'password': await HashPassword(password)
         }
 
-        const response = await apiClient.post(`/User/api/verifyUser`, verificationObject);
+        const response = await apiClient.post(`/User/api/verifyUser`, verificationObject).then(async response => {
+            const sessionId = response.headers['x-session-id'];
+            await StoreSessionID(sessionId);
+        })
+            .catch(error => {
+                console.error('Error:', error);
+            });;;
         return response.data;
 
     } catch (error) {
@@ -56,8 +62,15 @@ export const createUser = async (username, email, password) => {
             'timeStamp': new Date().toISOString()
         }
 
-        const response = await apiClient.post('/User/api/create', newUser);
+        const response = await apiClient.post('/User/api/create', newUser).then(async response => {
+            const sessionId = response.headers['x-session-id'];
+            await StoreSessionID(sessionId);
+        })
+            .catch(error => {
+                console.error('Error:', error);
+            });;
         return response.data;
+
     } catch (error) {
         console.error('Error creating user:', error);
         throw error;

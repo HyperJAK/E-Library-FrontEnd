@@ -47,20 +47,21 @@ const SignUp = ({setShowSignIn, setShowAuth}) => {
 
     try {
       if(cPassword === password){
-        const userData= await handleCreateUser(username, email, password)
-        if(userData != null){
+        const response= await handleCreateUser(username, email, password)
+
+        if (response?.ok || response.status === 200){
           //insert here code to save userData somewhere
-          const resp = await StoreUser(userData)
+          const resp = await StoreUser(response)
 
           if(resp){
-            setUser(userData)
+            setUser(response)
             setShowSuccess(true);
           }
           else{
             setShowError(true);
           }
-
         }
+
       }
       else{
         setShowError(true);
