@@ -11,6 +11,7 @@ import {getCurrentUser} from "@/config/API/server";
 import {GetUser} from "@/config/Utilities";
 import ErrorNotification from "@/components/shared/ErrorNotification";
 import SuccessNotification from "@/components/shared/SuccessNotification";
+import Loading from "@/components/shared/Loading";
 
 
 const rubikBold = Rubik({
@@ -105,7 +106,7 @@ export default function SpecificBook({params}) {
                 setShowError(true)
             }
 
-            if (response?.ok && response.status === 200) {
+            if (response?.ok || response.status === 200) {
                 setShowMessage(response?.message)
                 setShowSuccess(true)
                 //we then clear the cache
@@ -320,10 +321,10 @@ export default function SpecificBook({params}) {
     }, [showError, showSuccess, showMessage])
 
     return (
-        <>
-            {
-                bookDetails?  (
-                    <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
+
+            <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
+                {bookDetails ? (
+                    <>
 
                         {showError && (
                             <ErrorNotification message={showMessage}/>
@@ -338,40 +339,38 @@ export default function SpecificBook({params}) {
                             }>
                             {/*picture div*/}
                             <div className={'flex flex-col gap-2'}>
-                                <BookPic />
-                                <ButtonsChoiceDiv />
+                                <BookPic/>
+                                <ButtonsChoiceDiv/>
                             </div>
 
 
                             <div className={'flex flex-col flex-nowrap gap-2'}>
                                 {/*Book info div*/}
-                                <BookInfoDiv />
+                                <BookInfoDiv/>
                                 {/*Book description here*/}
-                                <BookDescription />
+                                <BookDescription/>
 
                                 <div className={'flex flex-row flex-nowrap gap-10'}>
                                     {/*Book details 1*/}
-                                    <BookDetailsSection1 />
+                                    <BookDetailsSection1/>
 
                                     {/*Book details 2*/}
-                                    <BookDetailsSection2 />
+                                    <BookDetailsSection2/>
                                 </div>
 
 
                             </div>
 
 
-
-
                         </div>
 
-                    </main>
-                )   :  ('Display a loading div here')
-            }
+                    </>
+                        ) : (<Loading message={'Loading your book'}/>)
+
+                    }
+            </main>
 
 
 
-
-        </>
     )
 }
