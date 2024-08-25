@@ -350,7 +350,7 @@ const Nav = () => {
             </Link>
 
             {!showAuth && authed &&
-                <Link href={'/api/auth/logout'}>
+                <Link href={'/'}>
                   <Button
                       style={
                         'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
