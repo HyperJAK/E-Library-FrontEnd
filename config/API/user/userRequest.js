@@ -11,6 +11,21 @@ export const getUserById = async (id) => {
     }
 };
 
+export const addUserSubscription = async (userId, subscriptionId) => {
+    try {
+        const requestData = {
+            'userId': userId,
+            'subscriptionId': subscriptionId
+        }
+
+        const response = await apiClient.post(`/User/api/addSubscription`, requestData);
+        return response.data;
+    } catch (error) {
+        console.error(`Error subscription id: ${subscriptionId}:`, error);
+        throw error;
+    }
+};
+
 //this is sign in
 export const verifyUser = async (email, password) => {
     try {

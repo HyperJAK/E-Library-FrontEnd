@@ -1,4 +1,12 @@
-import {getUserById, createUser, updateUser, deleteUser, verifyUser, borrowBook} from './userRequest';
+import {
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser,
+    verifyUser,
+    borrowBook,
+    addUserSubscription
+} from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 
 export const handleVerifyUser = async (email, password) => {
@@ -73,6 +81,16 @@ export const handleGetUserById = async (id) => {
         return user;
     } catch (error) {
         console.error('Error fetching user by ID:', error);
+        throw error;
+    }
+};
+
+export const handleAddSubscription = async (userId, subscriptionId) => {
+    try {
+        const response = await addUserSubscription(userId, subscriptionId);
+        return response;
+    } catch (error) {
+        console.error('Error:', error);
         throw error;
     }
 };

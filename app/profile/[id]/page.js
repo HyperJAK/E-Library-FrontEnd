@@ -26,6 +26,7 @@ export default function Profile({params}) {
   const [allowEdit, setAllowEdit] = useState(false)
   const [originalPass, setOriginalPass] = useState(null)
   const [cPassword, setCPassword] = useState(null)
+  const [subscriptionChanged, setSubscriptionChanged] = useState(false)
 
   const fetchUserData = async () => {
     try {
@@ -48,19 +49,18 @@ export default function Profile({params}) {
 
   }, [data])
 
+  //this useEffect is for when the user changes his subscription or add one
+  useEffect(() => {
+    fetchUserData()
+
+  }, [subscriptionChanged])
+
 
   //this use effect works to update profile after saving it
   useEffect(() => {
-    async function refreshUserProfile(){
-      if(!allowEdit){
-        const timeout = setTimeout(() => {
-          fetchUserData()
-        }, 2000)
-        return () => clearTimeout(timeout)
-      }
+    if(!allowEdit){
+      fetchUserData()
     }
-
-    refreshUserProfile()
 
   }, [allowEdit])
 
@@ -115,7 +115,7 @@ export default function Profile({params}) {
                 />
               </div>
               {/*User pfp and other info*/}
-              <UserProfilePicDiv data={data}/>
+              <UserProfilePicDiv data={data} setSubscriptionChanged={setSubscriptionChanged} subscriptionChanged={subscriptionChanged}/>
             </div>
           </div>
         ) : (
