@@ -55,14 +55,15 @@ export const handleBorrowBook = async (userId, bookId) => {
 export const handleUpdateUser = async (updatedUser) => {
     try {
         if (!updatedUser.id) {
-            throw new Error('User ID is required for updating');
+            return {
+                "message": "User ID is required for updating"
+            }
         }
 
         const response = await updateUser(updatedUser);
         return response;
     } catch (error) {
         console.error('Error updating user:', error);
-        throw error;
     }
 };
 

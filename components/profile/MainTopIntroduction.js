@@ -3,9 +3,13 @@
 import {Rubik} from 'next/font/google'
 
 //components
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Button from '@/components/shared/Button'
 import {HashPassword} from '@/config/Utilities'
+import {handleUpdateUser} from "@/config/API/user/userService";
+import {handleClearCache} from "@/config/API/book/bookService";
+import ErrorNotification from "@/components/shared/ErrorNotification";
+import SuccessNotification from "@/components/shared/SuccessNotification";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -90,6 +94,9 @@ const MainTopIntroduction = ({
   originalPass,
 }) => {
   const [navToRecipeWithId, setNavToRecipeWithId] = useState('')
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showMessage, setShowMessage] = useState('')
 
   const handleButtonClick = (event) => {
     setNavToRecipeWithId(event.target.key)
@@ -117,13 +124,47 @@ const MainTopIntroduction = ({
             }))
           }
 
-         /* await UpdateProfile({data})*/
+          const response = await handleUpdateUser(data);
+
+          if(response == null){
+            setShowMessage("An unexpected error occurred. Please try again.")
+            setShowError(true)
+          }
+
+          if (response?.ok && response.status === 200) {
+            setShowMessage(response?.message)
+            setShowSuccess(true)
+          } else {
+            setShowMessage(response?.message)
+            setShowError(true)
+          }
+
         } catch (error) {}
       }
     }
     setAllowEdit(!allowEdit)
     console.log(allowEdit)
   }
+
+  useEffect(() => {
+    async function resetMessageBoxes(){
+      if(showSuccess){
+        const timeout = setTimeout(() => {
+          setShowSuccess(false)
+        }, 3000)
+        return () => clearTimeout(timeout)
+      }
+      if(showError){
+        const timeout = setTimeout(() => {
+          setShowError(false)
+        }, 3000)
+        return () => clearTimeout(timeout)
+      }
+    }
+
+    resetMessageBoxes()
+
+  },[showError, showSuccess, showMessage])
 
   return (
     <>
@@ -132,6 +173,12 @@ const MainTopIntroduction = ({
         className={
           'relative flex h-3/4 w-full flex-row bg-profileMainImg bg-cover'
         }>
+        {showError && (
+            <ErrorNotification message={showMessage}/>
+        )}
+        {showSuccess && (
+            <SuccessNotification message={showMessage}/>
+        )}
         <div className={'h-full w-full bg-black/30'}>
           <div className={'flex flex-col gap-10 pb-20 pl-20 pt-10'}>
             {/*Page title*/}
