@@ -116,94 +116,9 @@ const Nav = () => {
   }
 
   useEffect(() => {
-    /*async function fetchData() {
-      try {
-        const response = await fetch(`http://localhost:3000/api/auth/me`)
-
-        const data = await response.json()
-        console.log('The auth email is: ' + data.email)
-
-        if (data) {
-          setAuthed(true)
-          try {
-            const sub = data.sub
-            const email = data.email
-
-            const hashedSub = await HashPassword({sub})
-
-            //here first we call a api call to get the id from database based on the email
-            const response = await SignInFunc({email, password: hashedSub})
-
-            //Then we add the info to local storage
-            if (response) {
-              const userForStorage = {
-                userId: response.user_id,
-              }
-
-              localStorage.setItem('user', JSON.stringify(userForStorage))
-            }
-          } catch (error) {
-            console.log(error)
-          }
-        }
-      } catch (error) {
-        setAuthed(false)
-      }
-    }*/
-
     async function fetchData() {
-      //the section inside this is responsible of getting user data if he signed in using external source (google)
       try {
-        /*const response = await fetch(`http://localhost:3000/api/auth/me`)
 
-        const data = await response.json()
-        console.log('The auth email is: ' + data.email)
-        console.log('The password is: ' + data.sub)
-
-        if (data) {
-          try {
-            const sub = data.sub
-            const email = data.email
-            const name = data.name
-
-            const hashedSub = await HashPassword({sub})
-            console.log('Entering Signin func')
-
-            //here first we call a api call to get the id from database based on the email
-            const response = await SignInFunc({email, password: hashedSub})
-
-            if (!response.user_id) {
-              const response2 = await SignUpFunc({
-                email,
-                password: hashedSub,
-                username: name,
-              })
-
-              if (response2.insertId) {
-                //here we put the nav value of id so we can use it for profile page:
-                setAuthed(true)
-
-                if (getCurrentUserId()) {
-                  setId(getCurrentUserId())
-                  console.log(getCurrentUserId())
-                }
-              } else {
-                console.log('Failed to Signup, err Nav line 174')
-              }
-            } else {
-              setAuthed(true)
-              //here we put the nav value of id so we can use it for profile page:
-
-              if (getCurrentUserId()) {
-                setId(getCurrentUserId())
-                console.log(getCurrentUserId())
-              }
-            }
-          } catch (error) {
-            console.log(error)
-            console.log('Crashed inside')
-          }
-        }*/
         const u = await GetUser()
 
         if(u != null){

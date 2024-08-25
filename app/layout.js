@@ -18,7 +18,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-    <UserProvider>
       <head>
         <title>Bymphony</title>
       </head>
@@ -28,7 +27,6 @@ export default function RootLayout({ children }) {
       <Nav />
       {children}
       </body>
-    </UserProvider>
     </html>
   );
 }

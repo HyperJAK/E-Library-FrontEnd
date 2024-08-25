@@ -43,27 +43,13 @@ export default function Profile({params}) {
     }
   }
 
+  //this use effect works to update profile after saving it
   useEffect(() => {
     if(data == null){
       fetchUserData()
     }
 
-  }, [data])
-
-  //this useEffect is for when the user changes his subscription or add one
-  useEffect(() => {
-    fetchUserData()
-
-  }, [subscriptionChanged])
-
-
-  //this use effect works to update profile after saving it
-  useEffect(() => {
-    if(!allowEdit){
-      fetchUserData()
-    }
-
-  }, [allowEdit])
+  }, [])
 
   return (
       <div>
