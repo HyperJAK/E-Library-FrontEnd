@@ -9,6 +9,7 @@ import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
 import {Rubik} from 'next/font/google'
 import Link from 'next/link'
 import {fetchBookSearchResults} from "@/config/API/book/bookService";
+import Loading from "@/components/shared/Loading";
 
 const InterestData = {
   topInfo: [
@@ -89,9 +90,8 @@ export default function SearchResults({params}) {
   }, [])
 
   return (
-    <>
       <main className="flex min-h-screen flex-col items-center justify-start gap-40 align-middle text-black">
-        {bookSearchResults && (
+        {bookSearchResults? (
           <>
             <div
               className={` mt-6 w-[90%] items-center rounded-full bg-secondary p-2 text-center text-white ${rubikBold.variable} font-rubik text-[2rem]`}>
@@ -190,8 +190,9 @@ export default function SearchResults({params}) {
               })}
             </div>
           </>
+        ) : (
+            <Loading message={'Loading Search Results'}/>
         )}
       </main>
-    </>
   )
 }

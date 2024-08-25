@@ -8,6 +8,7 @@ import ResidentialInformation from '@/components/profile/ResidentialInformation'
 import AboutMe from '@/components/profile/AboutMe'
 import CreditCardInfo from '@/components/profile/CreditCardInfo'
 import {handleGetUserById} from "@/config/API/user/userService";
+import Loading from "@/components/shared/Loading";
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -65,11 +66,10 @@ export default function Profile({params}) {
   }, [allowEdit])
 
   return (
-    <>
       <div>
         {data ? (
           <div
-            className={`relative z-30 flex h-auto flex-col justify-center text-opposite ${rubikRegular.variable} font-rubik `}
+            className={`relative flex h-auto flex-col justify-center text-opposite ${rubikRegular.variable} font-rubik `}
             key={data.id}>
             {/*Div for picture and introductory text and button to edit*/}
             <MainTopIntroduction
@@ -119,9 +119,8 @@ export default function Profile({params}) {
             </div>
           </div>
         ) : (
-          'Display a loading div here'
+            <Loading message={'Loading your profile'}/>
         )}
       </div>
-    </>
   )
 }
