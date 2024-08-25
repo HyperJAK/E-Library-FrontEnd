@@ -115,19 +115,6 @@ const Nav = () => {
     /*handle about us clicked*/
   }
 
-  const handleCartClicked = async () => {
-    try {
-      const response1 = await CheckUserCartStatus({userId: getCurrentUserId()})
-
-      if (response1) {
-        setCurrentCartId(response1.cart_id)
-
-        console.log('Current user id: ' + getCurrentUserId())
-        console.log('Current Cart id: ' + getCurrentCartId())
-      }
-    } catch (e) {}
-  }
-
   useEffect(() => {
     /*async function fetchData() {
       try {
@@ -328,11 +315,11 @@ const Nav = () => {
             />
 
             {/*User Cart*/}
-            <Link href={'/cart'}>
+            <Link href={'/book/borrowedBooks'}>
               <Button
                 itemComponents={
                   <div className={'flex flex-row gap-2'}>
-                    <p>Your Cart</p>
+                    <p>Your Books</p>
                     <Image
                       src={'/icons/shopping_cart.png'}
                       alt={'arrow down'}
@@ -341,7 +328,7 @@ const Nav = () => {
                     />
                   </div>
                 }
-                handle={handleCartClicked}
+                handle={''}
               />
             </Link>
 

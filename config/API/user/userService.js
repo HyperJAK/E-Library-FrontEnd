@@ -5,7 +5,7 @@ import {
     deleteUser,
     verifyUser,
     borrowBook,
-    addUserSubscription
+    addUserSubscription, getUserBorrowedBooks
 } from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 

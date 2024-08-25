@@ -7,6 +7,7 @@ import {
     getBookSuggestions, getBookWithGenre,
     updateBook
 } from './bookRequest';
+import {getUserBorrowedBooks} from "@/config/API/book/bookRequest";
 
 export const fetchAndFormatBooks = async () => {
     try {
@@ -27,6 +28,16 @@ export const fetchBook = async (id) => {
         return book;
     } catch (error) {
         console.error('Error fetching book with summary:', error);
+        throw error;
+    }
+};
+
+export const fetchBorrowedBooks = async (userId) => {
+    try {
+        const books = await getUserBorrowedBooks(userId);
+        return books;
+    } catch (error) {
+        console.error(`Error fetching borrowed books for user with ID: ${userId}`, error);
         throw error;
     }
 };

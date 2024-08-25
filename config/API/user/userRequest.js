@@ -1,9 +1,11 @@
 import {apiClient} from '../server'
-import {HashPassword} from "@/config/Utilities";
+import {HashPassword, StoreUser} from "@/config/Utilities";
 
 export const getUserById = async (id) => {
     try {
         const response = await apiClient.get(`/User/api/data/${id}`);
+        await StoreUser(response.data)
+
         return response.data;
     } catch (error) {
         console.error(`Error fetching user with ID ${id}:`, error);
@@ -25,6 +27,7 @@ export const addUserSubscription = async (userId, subscriptionId) => {
         throw error;
     }
 };
+
 
 //this is sign in
 export const verifyUser = async (email, password) => {

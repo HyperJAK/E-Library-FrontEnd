@@ -22,6 +22,16 @@ export const getBookById = async (id) => {
     }
 };
 
+export const getUserBorrowedBooks = async (userId) => {
+    try {
+        const response = await apiClient.get(`/Book/api/borrowedBooks/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching borrowed books for user with ID: ${userId}:`, error);
+        throw error;
+    }
+};
+
 
 export const createBook = async (newBook) => {
     try {
