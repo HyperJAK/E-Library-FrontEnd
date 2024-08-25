@@ -1,29 +1,6 @@
 'use client'
 // icons
-import {
-  HiHome,
-  HiUser,
-  HiViewColumns,
-  HiRectangleGroup,
-  HiChatBubbleBottomCenterText,
-  HiEnvelope,
-} from 'react-icons/hi2'
-
-//Auth
-import {useUser} from '@auth0/nextjs-auth0/client'
-
-// nav data
-export const navData = [
-  {name: 'home', path: '/', icon: <HiHome />},
-  {name: 'about', path: '/about', icon: <HiUser />},
-  {name: 'work', path: '/work', icon: <HiViewColumns />},
-  {
-    name: 'contact',
-    path: '/contact',
-    icon: <HiEnvelope />,
-  },
-]
-
+import {HiEnvelope, HiHome, HiUser, HiViewColumns,} from 'react-icons/hi2'
 //Next.js linker
 import Link from 'next/link'
 
@@ -36,19 +13,23 @@ import {useEffect, useState} from 'react'
 import SignUp from '@/components/shared/Validation/SignUp'
 import Title from '@/components/shared/Title'
 import SignIn from '@/components/shared/Validation/SignIn'
-import {GetUser, HashPassword, RemoveUser} from '@/config/Utilities'
-import {
-  getCurrentCartId,
-  getCurrentUserId,
-  setCurrentCartId,
-  setCurrentUserId,
-} from '@/config/data'
+import {GetUser, RemoveUser} from '@/config/Utilities'
+import {setCurrentCartId,} from '@/config/data'
+import {currentUser, getCurrentUser, setCurrentUser} from "@/config/API/server";
 
-import {
-  CheckUserCartStatus,
-  GetAllActiveCartItems,
-} from '@/config/API/cart/cartRequest'
-import {currentUser, getCurrentUser, setCurrentUser, user} from "@/config/API/server";
+//Auth
+
+// nav data
+export const navData = [
+  {name: 'home', path: '/', icon: <HiHome />},
+  {name: 'about', path: '/about', icon: <HiUser />},
+  {name: 'work', path: '/work', icon: <HiViewColumns />},
+  {
+    name: 'contact',
+    path: '/contact',
+    icon: <HiEnvelope />,
+  },
+]
 
 const rubikRegular = Rubik({
   subsets: ['latin'],

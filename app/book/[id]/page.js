@@ -2,12 +2,9 @@
 import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
-
-import Rating from '@/components/shared/Rating'
 import {Rubik} from 'next/font/google'
-import {fetchBook, fetchBookSuggestions, handleClearCache} from "@/config/API/book/bookService";
+import {fetchBook} from "@/config/API/book/bookService";
 import {handleBorrowBook} from "@/config/API/user/userService";
-import {getCurrentUser} from "@/config/API/server";
 import {GetUser} from "@/config/Utilities";
 import ErrorNotification from "@/components/shared/ErrorNotification";
 import SuccessNotification from "@/components/shared/SuccessNotification";
@@ -109,8 +106,8 @@ export default function SpecificBook({params}) {
             if (response?.ok || response.status === 200) {
                 setShowMessage(response?.message)
                 setShowSuccess(true)
-                //we then clear the cache
-                await handleClearCache(bookId)
+                /*//we then clear the cache
+                await handleClearCache(bookId)*/
             } else {
                 setShowMessage(response?.message)
                 setShowError(true)
