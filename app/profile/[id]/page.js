@@ -27,25 +27,42 @@ export default function Profile({params}) {
   const [originalPass, setOriginalPass] = useState(null)
   const [cPassword, setCPassword] = useState(null)
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await handleGetUserById(params.id)
+  const fetchUserData = async () => {
+    try {
+      const response = await handleGetUserById(params.id)
 
-        if (response) {
-          setData(response)
-          setCPassword(response.password)
-          setOriginalPass(response.password)
-        }
-      } catch (error) {
-        console.error(error)
+      if (response) {
+        setData(response)
+        setCPassword(response.password)
+        setOriginalPass(response.password)
       }
+    } catch (error) {
+      console.error(error)
     }
+  }
+
+  useEffect(() => {
     if(data == null){
       fetchUserData()
     }
 
   }, [data])
+
+
+  //this use effect works to update profile after saving it
+  useEffect(() => {
+    async function refreshUserProfile(){
+      if(!allowEdit){
+        const timeout = setTimeout(() => {
+          fetchUserData()
+        }, 2000)
+        return () => clearTimeout(timeout)
+      }
+    }
+
+    refreshUserProfile()
+
+  }, [allowEdit])
 
   return (
     <>

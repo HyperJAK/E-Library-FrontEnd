@@ -29,7 +29,7 @@ const AboutMe = ({data, setData, allowEdit}) => {
     if (allowEdit === true && e.target.value.length < 501) {
       setData((prevData) => ({
         ...prevData,
-        about_me: e.target.value,
+        aboutMe: e.target.value,
       }))
     }
   }
@@ -50,7 +50,7 @@ const AboutMe = ({data, setData, allowEdit}) => {
             <LabelField props={{label: 'About Me'}} />
             <TextTextfield
               props={{
-                text: data.about_me,
+                text: data.aboutMe,
                 title: 'Description about me',
                 allowEdit: allowEdit,
                 handleChange: handleAboutMe,
