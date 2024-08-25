@@ -9,6 +9,7 @@ import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
 import {Rubik} from 'next/font/google'
 import Link from 'next/link'
 import {fetchBooksWithGenre} from "@/config/API/book/bookService";
+import Loading from "@/components/shared/Loading";
 
 
 const rubikBold = Rubik({
@@ -59,7 +60,7 @@ export default function SpecificGenre({params}) {
     return (
         <>
             <main className="flex min-h-screen flex-col items-center justify-start gap-40 align-middle text-black">
-                {genreSearchResults && (
+                {genreSearchResults ? (
                     <>
                         <div
                             className={` mt-6 w-[90%] items-center rounded-full bg-secondary p-2 text-center text-white ${rubikBold.variable} font-rubik text-[2rem]`}>
@@ -146,7 +147,7 @@ export default function SpecificGenre({params}) {
                                                 rel="noopener noreferrer">
                                                 <Button
                                                     style={
-                                                        'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-opposite'
+                                                        'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-secondary'
                                                     }
                                                     itemComponents={<p>View Book</p>}
                                                     handle={''}
@@ -158,7 +159,7 @@ export default function SpecificGenre({params}) {
                             })}
                         </div>
                     </>
-                )}
+                ) : <Loading message={'Loading books'}/>}
             </main>
         </>
     )

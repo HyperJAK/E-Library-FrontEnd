@@ -107,85 +107,85 @@ export default function SearchResults({params}) {
                   /*Div for each book*/
                 }
                 return (
-                  <div
-                    className={'group flex flex-row flex-nowrap justify-center'}
-                    key={book.id}>
-                    {/*div for main info of book*/}
                     <div
-                      className={
-                        'flex flex-col items-center border-2 border-red-600 justify-center gap-4 group-hover:rounded-br-none group-hover:rounded-tr-none rounded-2xl border-b-2 border-l-2 border-t-2 border-transparent p-2 group-hover:border-secondary'
-                      }>
-                      <p
-                        className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>
-                        {book.title}
-                      </p>
-                      <p className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-opposite w-[80%]`}>{book.publishingDate}</p>
-
-                      <Image
-                        src={book.share_link}
-                        alt={'book image'}
-                        width={150}
-                        height={150}
-                        className={
-                          'rounded-2xl border-2 border-secondary'
-                        }
-                      />
-
+                        className={'group flex flex-row flex-nowrap justify-center border-2 border-primary rounded-2xl'}
+                        key={book.id}>
+                      {/*div for main info of book*/}
                       <div
-                        className={
-                          'z-30 flex flex-row flex-wrap justify-center gap-2'
-                        }>
-                        <div
                           className={
-                            'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
+                            'flex flex-col items-center bg-white border-1 rounded-2xl border-black/50 group-hover:border-2 group-hover:border-white group-hover:rounded-tl-2xl group-hover:rounded-bl-2xl justify-center gap-4 group-hover:border-r-2 group-hover:rounded-br-none group-hover:rounded-tr-none group:hover:border-r-white p-2 '
                           }>
-                          <AccessTimeFilledRoundedIcon fontSize="small" />
-                          {book.type}
-                        </div>
+                        <p
+                            className={`${rubikBold.variable} font-rubik text-[1rem] text-center text-primary w-[80%]`}>
+                          {book.title}
+                        </p>
+                        <p className={`${rubikBold.variable} font-rubik text-[0.6rem] text-center text-primary w-[80%]`}>{book.publishingDate}</p>
+
+                        <Image
+                            src={book.share_link}
+                            alt={'book image'}
+                            width={150}
+                            height={150}
+                            className={
+                              'rounded-2xl border-2 border-secondary'
+                            }
+                        />
+
                         <div
-                          className={
-                            'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
-                          }>
-                          <InsightsRoundedIcon fontSize="small" />
-                          {book.pageCount}
-                        </div>
-                        <div
-                          className={
-                            'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem]'
-                          }>
-                          <PeopleAltRoundedIcon fontSize="small" />
-                          {book.publisher}
+                            className={
+                              'z-30 flex flex-row flex-wrap justify-center gap-2'
+                            }>
+                          <div
+                              className={
+                                'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
+                              }>
+                            <AccessTimeFilledRoundedIcon fontSize="small" />
+                            {book.type}
+                          </div>
+                          <div
+                              className={
+                                'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
+                              }>
+                            <InsightsRoundedIcon fontSize="small" />
+                            {book.pageCount}
+                          </div>
+                          <div
+                              className={
+                                'flex  flex-row items-center justify-center gap-1 rounded-2xl bg-secondary p-1 text-[0.6rem] text-accent'
+                              }>
+                            <PeopleAltRoundedIcon fontSize="small" />
+                            {book.publisher}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    {/*div for description and button to navigate to book page*/}
-                    <div
-                      className={
-                        'hidden flex-col items-center justify-between rounded-br-2xl rounded-tr-2xl border-b-2 border-r-2 border-t-2 border-transparent p-2 align-middle group-hover:flex group-hover:border-secondary'
-                      }>
-                      <p
-                        className={`${rubikBold.variable} font-rubik text-[1rem] text-opposite`}>
-                        Info
-                      </p>
-                      <p
-                        className={`${rubikRegular.variable} max-h-[100px] max-w-[200px] overflow-auto font-rubik text-[0.6rem] text-opposite`}>
-                        {book.description}
-                      </p>
+                      {/*div for description and button to navigate to book page*/}
+                      <div
+                          className={
+                            'hidden flex-col shadow-inner shadow-primary bg-white items-center justify-between rounded-br-2xl rounded-tr-2xl border-b-2 border-r-2 border-t-2 border-transparent p-2 align-middle group-hover:flex'
+                          }>
+                        <p
+                            className={`${rubikBold.variable} font-rubik text-[1rem] text-primary`}>
+                          Info
+                        </p>
+                        <p
+                            className={`${rubikRegular.variable} max-h-[100px] max-w-[200px] overflow-auto font-rubik text-[0.6rem] text-primary`}>
+                          {book.description}
+                        </p>
 
-                      <Link
-                        href={`/book/${book.id}?id=${book.id}`}
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        <Button
-                          style={
-                            'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-opposite'
-                          }
-                          itemComponents={<p>View Book</p>}
-                          handle={''}
-                        />
-                      </Link>
+                        <Link
+                            href={`/book/${book.id}?id=${book.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                          <Button
+                              style={
+                                'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-secondary'
+                              }
+                              itemComponents={<p>View Book</p>}
+                              handle={''}
+                          />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
                 )
               })}
             </div>
