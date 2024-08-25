@@ -30,7 +30,7 @@ const CreditCardInfo = ({data, setData, allowEdit}) => {
     if (allowEdit === true && e.target.value.length < 201) {
       setData((prevData) => ({
         ...prevData,
-        card_number: e.target.value,
+        CardNumber: e.target.value.substring(0, 4),
       }))
     }
   }
@@ -40,7 +40,7 @@ const CreditCardInfo = ({data, setData, allowEdit}) => {
       console.log('Date value: ' + e)
       setData((prevData) => ({
         ...prevData,
-        card_expiration_date: e,
+        ExpirationDate: e,
       }))
     }
   }
@@ -82,7 +82,7 @@ const CreditCardInfo = ({data, setData, allowEdit}) => {
             <LabelField props={{label: 'Card Number'}} />
             <EmailTextfield
               props={{
-                email: data.card_number,
+                email: data.CardNumber,
                 title: 'Card Number',
                 allowEdit: allowEdit,
                 handleChange: handleCardNumber,
@@ -98,8 +98,8 @@ const CreditCardInfo = ({data, setData, allowEdit}) => {
               handleChange={handleExpiration}
               date={
                 new Date(
-                  data.card_expiration_date
-                    ? data.card_expiration_date
+                  data.ExpirationDate
+                    ? data.ExpirationDate
                     : '2025-01-01'
                 )
               }
