@@ -37,14 +37,17 @@ export const verifyUser = async (email, password) => {
             'password': await HashPassword(password)
         }
 
-        const response = await apiClient.post(`/User/api/verifyUser`, verificationObject).then(async response => {
-            const sessionId = response.headers['x-session-id'];
+        const response = await apiClient.post(`/User/api/verifyUser`, verificationObject)
+
+        const sessionId = response.headers["x-session-id"]
+        console.log(response)
+        if (sessionId) {
             await StoreSessionID(sessionId);
-        })
-            .catch(error => {
-                console.error('Error:', error);
-            });;;
-        return response.data;
+
+            return response.data;
+        } else {
+            console.error('Session ID not found in response headers');
+        }
 
     } catch (error) {
         console.error(`Wrong credentials or user doesnt exist`, error);
@@ -62,14 +65,17 @@ export const createUser = async (username, email, password) => {
             'timeStamp': new Date().toISOString()
         }
 
-        const response = await apiClient.post('/User/api/create', newUser).then(async response => {
-            const sessionId = response.headers['x-session-id'];
+        const response = await apiClient.post('/User/api/create', newUser)
+
+        const sessionId = response.headers["x-session-id"]
+        if (sessionId) {
             await StoreSessionID(sessionId);
-        })
-            .catch(error => {
-                console.error('Error:', error);
-            });;
-        return response.data;
+
+            console.log(response.data)
+            return response.data;
+        } else {
+            console.error('Session ID not found in response headers');
+        }
 
     } catch (error) {
         console.error('Error creating user:', error);

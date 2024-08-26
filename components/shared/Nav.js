@@ -355,8 +355,8 @@ const Nav = () => {
           </div>
         </div>
       </div>
-      {showAuth && !showSignIn ? <SignUp setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} /> : ''}
-      {showAuth && showSignIn ? <SignIn setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} /> : ''}
+      {showAuth && !showSignIn ? <SignUp setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} authed={authed} setAuthed={setAuthed}/> : ''}
+      {showAuth && showSignIn ? <SignIn setShowSignIn={setShowSignIn} setShowAuth={setShowAuth} authed={authed} setAuthed={setAuthed}/> : ''}
     </>
   )
 }

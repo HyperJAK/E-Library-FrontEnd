@@ -24,7 +24,7 @@ const rubikBold = Rubik({
   weight: ['700'],
 })
 
-const SignIn = ({setShowSignIn, setShowAuth}) => {
+const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showError, setShowError] = useState(false)
@@ -40,9 +40,10 @@ const SignIn = ({setShowSignIn, setShowAuth}) => {
     e.preventDefault()
 
     try{
-      const userData= await handleVerifyUser(email, password)
-      if(userData != null){
+      const response= await handleVerifyUser(email, password)
+      if(response && response.status === 200){
         //insert here code to save userData somewhere
+        const userData = response.userData;
         const resp = await StoreUser(userData)
 
         if(resp){
@@ -72,6 +73,7 @@ const SignIn = ({setShowSignIn, setShowAuth}) => {
         const timeout = setTimeout(() => {
           setShowSuccess(false)
           setShowAuth(false)
+          setAuthed(true)
         }, 3000)
         fetchData();
         return () => clearTimeout(timeout)
