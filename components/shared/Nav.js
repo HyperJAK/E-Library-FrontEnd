@@ -16,6 +16,7 @@ import SignIn from '@/components/shared/Validation/SignIn'
 import {GetUser, RemoveUser} from '@/config/Utilities'
 import {setCurrentCartId,} from '@/config/data'
 import {currentUser, getCurrentUser, setCurrentUser} from "@/config/API/server";
+import {handleUserLogOut} from "@/config/API/user/userService";
 
 //Auth
 
@@ -126,7 +127,10 @@ const Nav = () => {
     }
   }, [authed, showAuth])
 
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
+    const userData = await GetUser()
+    const u = await handleUserLogOut(userData.id)
+
     setAuthed(false)
     RemoveUser()
     setCurrentCartId(null)

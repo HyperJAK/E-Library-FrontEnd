@@ -43,7 +43,7 @@ const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
       const response= await handleVerifyUser(email, password)
       if(response && response.status === 200){
         //insert here code to save userData somewhere
-        const userData = response.userData;
+        const userData = response.user;
         const resp = await StoreUser(userData)
 
         if(resp){

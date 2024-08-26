@@ -1,5 +1,5 @@
 import {apiClient} from '../server'
-import {HashPassword, StoreSessionID, StoreUser} from "@/config/Utilities";
+import {GetSessionID, HashPassword, StoreSessionID, StoreUser} from "@/config/Utilities";
 
 export const getUserById = async (id) => {
     try {
@@ -65,7 +65,11 @@ export const createUser = async (username, email, password) => {
             'timeStamp': new Date().toISOString()
         }
 
-        const response = await apiClient.post('/User/api/create', newUser)
+        const request = {
+            'entityObject': newUser
+        }
+
+        const response = await apiClient.post('/User/api/create', request)
 
         const sessionId = response.headers["x-session-id"]
         if (sessionId) {
@@ -99,10 +103,32 @@ export const borrowBook = async (userId, bookId) => {
 
 export const updateUser = async (updatedUser) => {
     try {
-        const response = await apiClient.put('/User/api/update', updatedUser);
+        const sessionId = await GetSessionID()
+        const request = {
+            'entityObject': updatedUser,
+            'sessionID': sessionId
+        }
+
+        const response = await apiClient.put('/User/api/update', request);
         return response.data;
     } catch (error) {
         console.error('Error updating user:', error);
+        throw error;
+    }
+};
+
+export const userLogOut = async (id) => {
+    try {
+        const sessionId = await GetSessionID()
+        const request = {
+            'id': id,
+            'sessionID': sessionId
+        }
+
+        const response = await apiClient.post('/User/api/logOut', request);
+        return response.data;
+    } catch (error) {
+        console.error(`Error deleting user with ID ${id}:`, error);
         throw error;
     }
 };
