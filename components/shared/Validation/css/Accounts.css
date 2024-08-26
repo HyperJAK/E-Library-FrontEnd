@@ -1,0 +1,8 @@
+#signIn_link, #signUp_link{
+color: #393f81;
+}
+
+#signIn_link:hover, #signUp_link:hover{
+    color: whitesmoke;
+    cursor: pointer;
+}
