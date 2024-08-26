@@ -5,7 +5,7 @@ import {
     deleteUser,
     verifyUser,
     borrowBook,
-    addUserSubscription, getUserBorrowedBooks
+    addUserSubscription, getUserBorrowedBooks, userLogOut
 } from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 
@@ -92,6 +92,16 @@ export const handleAddSubscription = async (userId, subscriptionId) => {
         return response;
     } catch (error) {
         console.error('Error:', error);
+        throw error;
+    }
+};
+
+export const handleUserLogOut = async (id) => {
+    try {
+        const response = await userLogOut(id);
+        return response;
+    } catch (error) {
+        console.error('Error logging user Out:', error);
         throw error;
     }
 };

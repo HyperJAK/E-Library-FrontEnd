@@ -60,7 +60,7 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
         setShowError(true)
       }
 
-      if (response?.ok && response.status === 200) {
+      if (response && response.status === 200) {
         setSubscriptionChanged(!subscriptionChanged)
         setShowMessage(response.message)
         setShowSuccess(true)

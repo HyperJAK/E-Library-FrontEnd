@@ -45,11 +45,9 @@ export default function Profile({params}) {
 
   //this use effect works to update profile after saving it
   useEffect(() => {
-    if(data == null){
       fetchUserData()
-    }
 
-  }, [])
+  }, [subscriptionChanged])
 
   return (
       <div>

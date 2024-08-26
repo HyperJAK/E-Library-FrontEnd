@@ -52,7 +52,7 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
         console.log('got resp: ' + response)
         if (response  && response.status === 200){
           //insert here code to save userData somewhere
-          const userData = response.userData;
+          const userData = response.user;
           console.log('Entered success: ')
           const resp = await StoreUser(userData)
 
