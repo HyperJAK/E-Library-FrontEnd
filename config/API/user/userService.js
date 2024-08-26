@@ -29,6 +29,7 @@ export const handleCreateUser = async (username, email, password) => {
     try {
         if (ValidUsername(username) && ValidEmail(email) && ValidPassword(password)) {
             const user = await createUser(username, email, password);
+            console.log('got user not exiting service')
             return user;
         }
         else{
