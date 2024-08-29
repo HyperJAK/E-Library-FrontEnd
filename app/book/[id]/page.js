@@ -24,12 +24,14 @@ const rubikRegular = Rubik({
 
 export default function SpecificBook({params}) {
 
-    const [bookDetails, setBookDetails] = useState('')
+    const [bookDetails, setBookDetails] = useState([])
     const [bookId, setBookId] = useState(null)
 
     const [showError, setShowError] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
     const [showMessage, setShowMessage] = useState('')
+
+    const [user, setUser] = useState([])
 
     const BookInfoDiv = () => {
         return (
@@ -114,16 +116,53 @@ export default function SpecificBook({params}) {
             }
         }
 
+        const unborrowBook = async() => {
+            /*const userId = await GetUser()
+            const response = await handleBorrowBook(userId?.id, bookId)
+            console.log('Response' + response)
+
+            if(response == null){
+                setShowMessage("An unexpected error occurred. Please try again.")
+                setShowError(true)
+            }
+
+            if (response?.ok || response.status === 200) {
+                setShowMessage(response?.message)
+                setShowSuccess(true)
+                /!*!//we then clear the cache
+                await handleClearCache(bookId)*!/
+            } else {
+                setShowMessage(response?.message)
+                setShowError(true)
+            }*/
+        }
+
 
         return (
             <div className={'flex flex-row flex-nowrap justify-center gap-2'}>
-                <Button
-                    style={
-                        'justify-center w-[40%] flex text-[0.9rem] flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
-                    }
-                    itemComponents={<p>Borrow Book</p>}
-                    handle={borrowBook}
-                />
+                {
+                    user?.userBooks?.length > 0? (
+
+                        <Button
+                            style={
+                                'justify-center w-[40%] flex text-[0.9rem] flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
+                            }
+                            itemComponents={<p>Unborrow Book</p>}
+                            handle={unborrowBook}
+                        />
+                    ) : (
+
+                        <Button
+                            style={
+                                'justify-center w-[40%] flex text-[0.9rem] flex-row border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
+                            }
+                            itemComponents={<p>Borrow Book</p>}
+                            handle={borrowBook}
+                        />
+                    )
+                }
+
+
                 <Button
                     style={
                         'justify-center w-[40%] flex flex-row text-[0.9rem]  border-solid border-secondary border-2 bg-secondary p-3 hover:bg-accent hover:cursor-pointer flex-row flex text-page rounded-full hover:text-secondary'
@@ -293,6 +332,19 @@ export default function SpecificBook({params}) {
 
             } catch (error) {}
         }
+
+        async function fetchUser() {
+            try {
+                const data = await GetUser()
+
+                if (data) {
+                    setUser(data)
+                } else {
+                    setUser([])
+                }
+
+            } catch (error) {}
+        }
         async function resetMessageBoxes(){
             if(showSuccess){
                 const timeout = setTimeout(() => {
@@ -312,9 +364,9 @@ export default function SpecificBook({params}) {
 
         resetMessageBoxes()
 
-        if (bookDetails !== []) {
-            fetchData()
-        }
+        fetchData()
+        fetchUser()
+
     }, [showError, showSuccess, showMessage])
 
     return (
