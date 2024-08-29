@@ -164,13 +164,13 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap max-w-[400px]'}>
 
                 {/*type*/}
-                <p>Type: <span className={'text-secondary'}>{bookDetails.type ?? 'Physical'}</span></p>
+                <p className={'text-primary font-bold'}>Type: <span className={'text-primary font-normal'}>{bookDetails.type ?? 'Physical'}</span></p>
                 {/*languages*/}
-                <p>Languages:
+                <p className={'text-primary font-bold'}>Languages:
                     {bookDetails.languages &&
                         bookDetails.languages.map((language) => {
                             return (
-                                <span key={language.id}><span className={'text-secondary'}> {language.type}</span>
+                                <span key={language.id}><span className={'text-primary font-normal'}> {language.type}</span>
                                     {language.id !== bookDetails.languages[bookDetails.languages.length - 1].id? ', ':''}
                                 </span>
                             );
@@ -180,16 +180,16 @@ export default function SpecificBook({params}) {
 
 
                 {/*publishing date*/}
-                <p>Publishing Date: <span className={'text-secondary'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
+                <p className={'text-primary font-bold'}>Publishing Date: <span className={'text-primary font-normal'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
                 {/*author*/}
-                <p>Author: <span className={'text-secondary'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
+                <p className={'text-primary font-bold'}>Author: <span className={'text-primary font-normal'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
 
                 {/*genres*/}
-                <p className={'max-w-[400px]'}>Genres:
+                <p className={'max-w-[400px] text-primary font-bold'}>Genres:
                     {bookDetails.genres &&
                         bookDetails.genres.map((genre) => {
                             return (
-                                <span key={genre.id}><span className={'text-secondary'}> {genre.type}</span>
+                                <span key={genre.id}><span className={'text-primary font-normal'}> {genre.type}</span>
                                     {genre.id !== bookDetails.genres[bookDetails.genres.length - 1].id? ', ':''}
                                 </span>
                             );
@@ -207,26 +207,26 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap'}>
 
                 {/*pages count*/}
-                <p>Pages: <span className={'text-secondary'}>{bookDetails.pageCount ?? '300'}</span></p>
+                <p className={'text-primary font-bold'}>Pages: <span className={'text-primary font-normal'}>{bookDetails.pageCount ?? '300'}</span></p>
                 {/*size if digital, or stock if physical*/}
                 {
                     bookDetails.type === 'Digital' ? (
-                        <p>Size: <span className={'text-secondary'}>{bookDetails.fileSizeInMB ?? '30'}MB</span></p>
+                        <p className={'text-primary font-bold'}>Size: <span className={'text-primary font-normal'}>{bookDetails.fileSizeInMB ?? '30'}MB</span></p>
                     ) : (
-                        <p>Stock: <span className={'text-secondary'}>{bookDetails.physicalBookCount ?? '30'}</span></p>
+                        <p className={'text-primary font-bold'}>Stock: <span className={'text-primary font-normal'}>{bookDetails.physicalBookCount ?? '30'}</span></p>
                     )
                 }
                 {/*publisher*/}
-                <p>Publisher: <span className={'text-secondary'}>{bookDetails.publisher ?? 'Someone'}</span></p>
+                <p className={'text-primary font-bold'}>Publisher: <span className={'text-primary font-normal'}>{bookDetails.publisher ?? 'Someone'}</span></p>
 
 
                 {/*tags*/}
-                <p>
+                <p className={'text-primary font-bold'}>
                     Tags:
                     {bookDetails.tags &&
                         bookDetails.tags.map((tag) => {
                             return (
-                                <span key={tag.id}><span className={'text-secondary'}> {tag.type}</span>
+                                <span key={tag.id}><span className={'text-primary font-normal'}> {tag.type}</span>
                                     {tag.id !== bookDetails.tags[bookDetails.tags.length - 1].id? ', ':''}
                                 </span>
                             );
@@ -240,12 +240,12 @@ export default function SpecificBook({params}) {
                 {/*formats if digital / physical location in library if regular*/}
                 {
                     bookDetails.type === 'Digital' ? (
-                        <p>
+                        <p className={'text-primary font-bold'}>
                             Formats:
                             {bookDetails.formats && bookDetails.formats.length > 0 ? (
                                 bookDetails.formats.map((format) => (
                                     <span key={format.id}>
-                                        <span className="text-secondary"> {format.type}</span>
+                                        <span className="text-primary font-normal"> {format.type}</span>
                                         {format.id !== bookDetails.formats[bookDetails.formats.length - 1].id? ', ':''}
                                     </span>
                                 ))
@@ -254,9 +254,9 @@ export default function SpecificBook({params}) {
                             )}
                         </p>
                     ) : (
-                        <p>
+                        <p className={'text-primary font-bold'}>
                             Location:
-                            <span className="text-secondary">{' '}
+                            <span className="text-primary font-normal">{' '}
                                 Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} -
                                 Section: {bookDetails.physicalBookLocation?.section ?? 'B'} -
                                 Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}
@@ -319,7 +319,7 @@ export default function SpecificBook({params}) {
 
     return (
 
-            <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-24 text-black">
+            <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-10 text-black">
                 {bookDetails ? (
                     <>
 
@@ -332,7 +332,7 @@ export default function SpecificBook({params}) {
                         {/*Main div*/}
                         <div
                             className={
-                                'flex w-[90%] flex-row flex-wrap rounded-2xl bg-accent p-10'
+                                'flex w-[100%] flex-row justify-center items-center flex-wrap rounded-2xl bg-accent p-4'
                             }>
                             {/*picture div*/}
                             <div className={'flex flex-col gap-2'}>
