@@ -27,15 +27,23 @@ export const handleVerifyUser = async (email, password) => {
 
 export const handleCreateUser = async (username, email, password) => {
     try {
-        if (ValidUsername(username) && ValidEmail(email) && ValidPassword(password)) {
-            const user = await createUser(username, email, password);
-            console.log('got user not exiting service')
-            return user;
+        if(!ValidUsername(username) && !ValidEmail(email) && !ValidPassword(password)){
+            return "Invalid input"
         }
-        else{
-            console.error('Email or password empty');
-            return null;
+
+        if(!ValidUsername(username)){
+            return "Invalid Username"
         }
+        if(!ValidEmail(email)){
+            return "Invalid Email"
+        }
+        if(!ValidPassword(password)){
+            return "Invalid Password"
+        }
+        const user = await createUser(username, email, password);
+        console.log('got user not exiting service')
+        return user;
+
     } catch (error) {
         console.error('Error creating user:', error);
         throw error;

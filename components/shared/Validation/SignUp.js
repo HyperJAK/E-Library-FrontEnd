@@ -34,6 +34,7 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
   const [isHovered, setIsHovered] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
+  const [showMessage, setShowMessage] = useState('')
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [user, setUser] = useState('')
@@ -64,7 +65,11 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
             setShowError(true);
           }
         }
-
+        else{
+          console.log("Entered error condition")
+          setShowMessage(response)
+          setShowError(true);
+        }
       }
       else{
         setShowError(true);
@@ -106,7 +111,7 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
       }>
 
       {showError && (
-          <ErrorNotification message={"Wrong credentials or non existent user"}/>
+          <ErrorNotification message={showMessage}/>
       )}
       {showSuccess && (
           <SuccessNotification message={`Welcome, ${user.username}`}/>

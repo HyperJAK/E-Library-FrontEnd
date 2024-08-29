@@ -29,6 +29,7 @@ const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
   const [password, setPassword] = useState('')
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showMessage, setShowMessage] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [user, setUser] = useState('')
 

@@ -85,17 +85,6 @@ const Nav = () => {
     /*handle dark mode clicked*/
   }
 
-  const handleContactUsClick = () => {
-    /*handle contact us clicked*/
-  }
-
-  const handleNopeClick = () => {
-    /*handle contact us clicked*/
-  }
-
-  const handleAboutUsClick = () => {
-    /*handle about us clicked*/
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -171,18 +160,6 @@ const Nav = () => {
               Books
             </Link>
 
-            <Link
-              href={'/aboutUs'}
-              className={`${pathName === '/aboutus' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6 hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              About Us
-            </Link>
-
-            <Link
-              href={'/contactUs'}
-              className={`${pathName === '/contactus' ? 'border-b-4' : ''} rounded-br-2xl border-b-accent p-6  hover:cursor-pointer hover:border-b-4 hover:border-solid`}>
-              Contact Us
-            </Link>
-
           </div>
 
           {/*buttons right*/}
@@ -197,22 +174,6 @@ const Nav = () => {
                 handle={handleSignInButtonClick}
               />
             )}
-
-            {/*language chooser button here*/}
-            <Button
-              itemComponents={
-                <>
-                  <p>Eng</p>
-                  <Image
-                    src={'/icons/keyboard_arrow_down.png'}
-                    alt={'arrow down'}
-                    width={20}
-                    height={20}
-                  />
-                </>
-              }
-              handle={handleLanguageButtonClick}
-            />
 
             {/*User Cart*/}
             <Link href={'/book/borrowedBooks'}>
@@ -289,50 +250,6 @@ const Nav = () => {
               }
               handle={handleDarkModeClick}
             />
-
-            <Link
-              href={'/contactUs'}
-              onClick={handleProfileButtonClick}>
-              <Button
-                style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2'
-                }
-                itemComponents={
-                  <>
-                    <p>Contact us</p>{' '}
-                    <Image
-                      src={'/icons/person.png'}
-                      alt={'person image'}
-                      width={20}
-                      height={20}
-                    />
-                  </>
-                }
-                handle={handleContactUsClick}
-              />
-            </Link>
-
-            <Link
-              href={'/aboutUs'}
-              onClick={handleProfileButtonClick}>
-              <Button
-                style={
-                  'bg-accent/50 p-10 pr-40 hover:bg-secondary text-primary hover:cursor-pointer flex-row flex gap-2 rounded-bl-2xl'
-                }
-                itemComponents={
-                  <>
-                    <p>About us</p>{' '}
-                    <Image
-                      src={'/icons/person.png'}
-                      alt={'person image'}
-                      width={20}
-                      height={20}
-                    />
-                  </>
-                }
-                handle={handleAboutUsClick}
-              />
-            </Link>
 
             {!showAuth && authed &&
                 <Link href={'/'}>
