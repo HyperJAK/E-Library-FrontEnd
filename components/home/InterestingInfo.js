@@ -24,29 +24,29 @@ const InterestData = {
   topInfo: [
     {
       iconPath: '/icons/beenhere.png',
-      description: 'Professional chef’s approval',
+      description: 'Approved Internationaly',
     },
     {
       iconPath: '/icons/done.png',
-      description: 'Safety checks',
+      description: 'No Plagiarism',
     },
     {
       iconPath: '/icons/fast_forward.png',
-      description: 'Fast equipment deliveries',
+      description: 'Fast services',
     },
   ],
   bottomInfo: [
     {
       dataNb: 10000,
-      description: 'Recipes published',
+      description: 'Our Books',
     },
     {
       dataNb: 7000,
-      description: 'Good ratings',
+      description: 'Our Users',
     },
     {
       dataNb: 100000,
-      description: 'User reviews',
+      description: 'A lot of Genres',
     },
   ],
 }
