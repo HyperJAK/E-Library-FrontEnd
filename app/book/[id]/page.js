@@ -80,12 +80,12 @@ export default function SpecificBook({params}) {
         return (
             <div className=" relative m-8 h-[400px] min-h-[400px] w-[300px] min-w-[300px] rounded-2xl text-white">
                 {/* Image at the top */}
-                <div className=" border-2 border-primary">
+                <div>
                     <Image
-                        src={bookDetails.coverImageURL ?? '/recipeExample.png'}
-                        alt={'recipe image'}
+                        src={bookDetails.coverImageURL ?? '/bookPlaceholder.png'}
+                        alt={'book image'}
                         layout="fill"
-                        objectFit="cover"
+                       /* objectFit="cover"*/
                         className="z-10"
                     />
                 </div>
