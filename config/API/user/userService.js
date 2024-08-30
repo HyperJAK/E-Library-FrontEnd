@@ -5,7 +5,7 @@ import {
     deleteUser,
     verifyUser,
     borrowBook,
-    addUserSubscription, getUserBorrowedBooks, userLogOut
+    addUserSubscription, getUserBorrowedBooks, userLogOut, unborrowBook
 } from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 import {forEach} from "react-bootstrap/ElementChildren";
@@ -73,7 +73,26 @@ export const handleBorrowBook = async (userId, bookId) => {
             }
         }
     } catch (error) {
-        console.error('Error creating user:', error);
+        console.error('Error borrowing book:', error);
+    }
+};
+
+export const handleUnborrowBook = async (userId, bookId) => {
+    try {
+        console.log('User id: ' + userId)
+        console.log('Book id: ' + bookId)
+        if (userId && bookId) {
+            const response = await unborrowBook(userId, bookId);
+            return response;
+        }
+        else{
+            console.error('User or book required');
+            return {
+                "message": "User was not found, please login"
+            }
+        }
+    } catch (error) {
+        console.error('Error unborrowing book:', error);
     }
 };
 

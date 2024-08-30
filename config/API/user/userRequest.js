@@ -89,15 +89,34 @@ export const createUser = async (username, email, password) => {
 
 export const borrowBook = async (userId, bookId) => {
     try {
+        const sessionId = await GetSessionID()
         const requestData = {
             'userId': userId,
-            'bookId': bookId
+            'bookId': bookId,
+            'sessionId': sessionId
         }
 
         const response = await apiClient.post('/User/api/borrowBook', requestData);
         return response.data;
     } catch (error) {
         console.error('Error creating user:', error);
+    }
+};
+
+export const unborrowBook = async (userId, bookId) => {
+    try {
+        console.log('userid is: ' + userId + 'and book id is: ' + bookId)
+        const sessionId = await GetSessionID()
+        const requestData = {
+            'userId': userId,
+            'bookId': bookId,
+            'sessionId': sessionId
+        }
+
+        const response = await apiClient.post('/User/api/unborrowBook', requestData);
+        return response.data;
+    } catch (error) {
+        console.error('Error unborrowing book:', error);
     }
 };
 

@@ -3,8 +3,8 @@ import Image from 'next/image'
 import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
 import {Rubik} from 'next/font/google'
-import {fetchBook} from "@/config/API/book/bookService";
-import {handleBorrowBook} from "@/config/API/user/userService";
+import {fetchBook, handleClearCache} from "@/config/API/book/bookService";
+import {handleBorrowBook, handleUnborrowBook} from "@/config/API/user/userService";
 import {GetUser} from "@/config/Utilities";
 import ErrorNotification from "@/components/shared/ErrorNotification";
 import SuccessNotification from "@/components/shared/SuccessNotification";
@@ -105,7 +105,7 @@ export default function SpecificBook({params}) {
                 setShowError(true)
             }
 
-            if (response?.ok || response.status === 200) {
+            if (response && response.status === 200) {
                 setShowMessage(response?.message)
                 setShowSuccess(true)
                 /*//we then clear the cache
@@ -117,8 +117,8 @@ export default function SpecificBook({params}) {
         }
 
         const unborrowBook = async() => {
-            /*const userId = await GetUser()
-            const response = await handleBorrowBook(userId?.id, bookId)
+            const userId = await GetUser()
+            const response = await handleUnborrowBook(userId?.id, bookId)
             console.log('Response' + response)
 
             if(response == null){
@@ -126,15 +126,15 @@ export default function SpecificBook({params}) {
                 setShowError(true)
             }
 
-            if (response?.ok || response.status === 200) {
+            if (response && response.status === 200) {
                 setShowMessage(response?.message)
                 setShowSuccess(true)
-                /!*!//we then clear the cache
-                await handleClearCache(bookId)*!/
+                //we then clear the cache
+                await handleClearCache(bookId)
             } else {
                 setShowMessage(response?.message)
                 setShowError(true)
-            }*/
+            }
         }
 
 

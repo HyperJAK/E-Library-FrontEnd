@@ -7,7 +7,7 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import Button from "@/components/shared/Button";
 import Link from "next/link";
-import {handleAddSubscription, handleGetUserById} from "@/config/API/user/userService";
+import {handleAddSubscription, handleGetUserById, handleUnborrowBook} from "@/config/API/user/userService";
 import {handleGetAllSubscriptions} from "@/config/API/user/subscription/subscriptionService";
 import {GetUser} from "@/config/Utilities";
 import {handleClearCache} from "@/config/API/book/bookService";
@@ -45,6 +45,27 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
   const handleShowAllBooks = () => {
     setShowBooks(!showBooks)
     setShowSubscriptions(false)
+  }
+
+  const unborrowBook = async(userBook) => {
+    const userId = await GetUser()
+    const response = await handleUnborrowBook(userId?.id, userBook.id)
+    console.log('Response' + response)
+
+    if(response == null){
+        setShowMessage("An unexpected error occurred. Please try again.")
+        setShowError(true)
+    }
+
+    if (response && response.status === 200) {
+        setShowMessage(response?.message)
+        setShowSuccess(true)
+        //we then clear the cache
+        await handleClearCache(userBook.id)
+    } else {
+        setShowMessage(response?.message)
+        setShowError(true)
+    }
   }
 
   const handleSubscriptions = () => {
@@ -222,9 +243,6 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
 
                             </div>
 
-
-
-
                         </div>
                     )
                   })
@@ -285,6 +303,13 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
 
 
                             </div>
+                            <Button
+                                style={
+                                  'justify-center text-[0.8rem] h-10 self-center flex flex-row border-solid border-primary border-2 bg-primary p-2 hover:bg-accent hover:cursor-pointer text-accent rounded-2xl hover:text-primary'
+                                }
+                                itemComponents={<p>Unborrow</p>}
+                                handle={() => unborrowBook(userBook)}
+                            />
 
 
 
