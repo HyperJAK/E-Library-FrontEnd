@@ -346,6 +346,10 @@ export default function SpecificBook({params}) {
             try {
                 const data = await GetUser()
                 const newUser = await handleGetUserById(data.id)
+                console.log('Going inside to fetch user')
+                console.log('The user object is : ' + newUser)
+
+                console.log('The user object is : ' + newUser.userBooks.length)
 
 
                 if (newUser) {
@@ -376,10 +380,9 @@ export default function SpecificBook({params}) {
         resetMessageBoxes()
 
         fetchData()
-        if(user == null || user == []){
+        if(user == null || user === []){
             fetchUser()
         }
-
 
     }, [showError, showSuccess, showMessage, user])
 

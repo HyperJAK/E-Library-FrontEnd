@@ -116,17 +116,20 @@ export const handleGetUserById = async (id) => {
         const user = await getUserById(id);
 
 
-        user.userBooks.forEach((book) => {
-            //changing borrowed date and due date from Datetime format to normal Date
-            const borrowedDate = new Date(book.borrowedDate);
-            const normalDate = borrowedDate.toLocaleDateString('en-CA');
+        if(user.userBooks.length > 0){
+            user.userBooks.forEach((book) => {
+                //changing borrowed date and due date from Datetime format to normal Date
+                const borrowedDate = new Date(book.borrowedDate);
+                const normalDate = borrowedDate.toLocaleDateString('en-CA');
 
-            const dueDate = new Date(book.dueDate);
-            const normalDueDate = dueDate.toLocaleDateString('en-CA');
+                const dueDate = new Date(book.dueDate);
+                const normalDueDate = dueDate.toLocaleDateString('en-CA');
 
-            book.borrowedDate = normalDate;
-            book.dueDate = normalDueDate;
-        });
+                book.borrowedDate = normalDate;
+                book.dueDate = normalDueDate;
+            });
+        }
+
 
         return user;
 
