@@ -380,11 +380,10 @@ export default function SpecificBook({params}) {
         resetMessageBoxes()
 
         fetchData()
-        if(user == null || user === []){
-            fetchUser()
-        }
+        fetchUser()
 
-    }, [showError, showSuccess, showMessage, user])
+
+    }, [showError, showSuccess, showMessage])
 
     return (
 
