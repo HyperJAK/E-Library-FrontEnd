@@ -44,10 +44,12 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
 
   const handleShowAllBooks = () => {
     setShowBooks(!showBooks)
+    setShowSubscriptions(false)
   }
 
   const handleSubscriptions = () => {
     setShowSubscriptions(!showSubscriptions)
+    setShowBooks(false)
   }
 
   const addUserSubscription = async (id) => {
@@ -175,7 +177,7 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
                       style={
                         'justify-center text-[0.8rem] flex flex-row border-solid border-secondary border-2 bg-secondary p-2 hover:bg-accent hover:cursor-pointer text-page rounded-2xl hover:text-secondary'
                       }
-                      itemComponents={<p>Show</p>}
+                      itemComponents={<p>{showBooks? 'Hide': 'Show'}</p>}
                       handle={handleShowAllBooks}
                   />
               }
@@ -244,24 +246,41 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
                             target="_blank"
                             rel="noopener noreferrer">
                           <div className="flex cursor-pointer flex-row justify-start gap-2 rounded-2xl p-4 hover:bg-secondary">
-                            <div className={'relative w-[30px] h-[30px] self-center'}>
-                              <Image
-                                  src={userBook.book.CoverImageURL ?? '/pot.png'}
-                                  alt="image"
-                                  layout="fill"
-                                  objectFit="cover"
-                              />
-                            </div>
-                            <div className={'flex flex-col gap-1'}>
-                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
-                              <span className={`${rubikBold.variable} text-primary font-rubik text-[1.4rem]`}>
-                                {userBook.book.title?.length > threshold ? `${userBook.book.title.substring(0, threshold)}...` : userBook.book.title ?? 'Harry potter'}
-                              </span>
 
+                              <div className={'relative w-[30px] h-[30px] self-center'}>
+                                <Image
+                                    src={userBook.book.CoverImageURL ?? '/bookPlaceholder.png'}
+                                    alt="image"
+                                    layout="fill"
+
+                                />
+                              </div>
+                            <div className="flex flex-row justify-between gap-2 w-[100%]">
+                              <div className={'flex flex-col gap-1 pl-4'}>
+                                <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
+                                <span className={`${rubikBold.variable} text-primary font-rubik text-[1.4rem]`}>
+                                  {userBook.book.title?.length > threshold ? `${userBook.book.title.substring(0, threshold)}...` : userBook.book.title ?? 'Harry potter'}
+                                </span>
+
+                                </p>
+
+                                <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
+                                  {userBook.book.publishingDate ?? '2023-01-02'}
+                                </p>
+
+
+                              </div>
+                            </div>
+
+                            <div className={'flex flex-col gap-1 w-[20%]'}>
+                              <p className={'font-bold text-primary'}>Borrowed on</p>
+                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.6rem]`}>
+                                {userBook.borrowedDate ?? '2023-01-01'}
                               </p>
 
-                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.8rem]`}>
-                                {userBook.book.publishingDate ?? '2023-01-02'}
+                              <p className={'font-bold text-primary'}>Due at</p>
+                              <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} text-primary font-rubik text-[0.6rem]`}>
+                                {userBook.dueDate ?? '2023-01-02'}
                               </p>
 
 

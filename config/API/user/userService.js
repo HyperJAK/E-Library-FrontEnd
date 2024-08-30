@@ -8,6 +8,7 @@ import {
     addUserSubscription, getUserBorrowedBooks, userLogOut
 } from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 export const handleVerifyUser = async (email, password) => {
     try {
@@ -94,7 +95,22 @@ export const handleUpdateUser = async (updatedUser) => {
 export const handleGetUserById = async (id) => {
     try {
         const user = await getUserById(id);
+
+
+        user.userBooks.forEach((book) => {
+            //changing borrowed date and due date from Datetime format to normal Date
+            const borrowedDate = new Date(book.borrowedDate);
+            const normalDate = borrowedDate.toLocaleDateString('en-CA');
+
+            const dueDate = new Date(book.dueDate);
+            const normalDueDate = dueDate.toLocaleDateString('en-CA');
+
+            book.borrowedDate = normalDate;
+            book.dueDate = normalDueDate;
+        });
+
         return user;
+
     } catch (error) {
         console.error('Error fetching user by ID:', error);
         throw error;
