@@ -1,11 +1,8 @@
 import {
     clearBookCache,
-    createBook,
-    deleteBook,
     getAllBooks,
     getBookById, getBookSearchResults,
     getBookSuggestions, getBookWithGenre,
-    updateBook
 } from './bookRequest';
 import {getUserBorrowedBooks} from "@/config/API/book/bookRequest";
 
@@ -38,53 +35,6 @@ export const fetchBorrowedBooks = async (userId) => {
         return books;
     } catch (error) {
         console.error(`Error fetching borrowed books for user with ID: ${userId}`, error);
-        throw error;
-    }
-};
-
-export const handleCreateBook = async (newBook) => {
-    try {
-        if (!newBook.title || !newBook.author) {
-            throw new Error('Title and author are required');
-        }
-
-        const response = await createBook(newBook);
-        return response;
-    } catch (error) {
-        console.error('Error creating book:', error);
-        throw error;
-    }
-};
-
-
-export const handleUpdateBook = async (updatedBook) => {
-    try {
-
-        if (!updatedBook.id) {
-            throw new Error('Book ID is required for updating');
-        }
-
-        const response = await updateBook(updatedBook);
-        return response;
-    } catch (error) {
-        console.error('Error updating book:', error);
-        throw error;
-    }
-};
-
-
-export const handleDeleteBook = async (id) => {
-    try {
-
-        if (!window.confirm('Are you sure you want to delete this book?')) {
-            return null;
-        }
-
-
-        const response = await deleteBook(id);
-        return response;
-    } catch (error) {
-        console.error('Error deleting book:', error);
         throw error;
     }
 };

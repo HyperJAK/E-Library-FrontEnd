@@ -2,13 +2,11 @@ import {
     getUserById,
     createUser,
     updateUser,
-    deleteUser,
     verifyUser,
     borrowBook,
-    addUserSubscription, getUserBorrowedBooks, userLogOut, unborrowBook
+    addUserSubscription, userLogOut, unborrowBook
 } from './userRequest';
 import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
-import {forEach} from "react-bootstrap/ElementChildren";
 
 export const handleVerifyUser = async (email, password) => {
     try {
@@ -155,16 +153,6 @@ export const handleUserLogOut = async (id) => {
         return response;
     } catch (error) {
         console.error('Error logging user Out:', error);
-        throw error;
-    }
-};
-
-export const handleDeleteUser = async (id) => {
-    try {
-        const response = await deleteUser(id);
-        return response;
-    } catch (error) {
-        console.error('Error deleting user:', error);
         throw error;
     }
 };

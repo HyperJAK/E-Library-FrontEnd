@@ -33,39 +33,6 @@ export const getUserBorrowedBooks = async (userId) => {
 };
 
 
-export const createBook = async (newBook) => {
-    try {
-        const response = await apiClient.post('/Book/api/create', newBook);
-        return response.data;
-    } catch (error) {
-        console.error('Error creating book:', error);
-        throw error;
-    }
-};
-
-
-export const updateBook = async (updatedBook) => {
-    try {
-        const response = await apiClient.put('/Book/api/update', updatedBook);
-        return response.data;
-    } catch (error) {
-        console.error('Error updating book:', error);
-        throw error;
-    }
-};
-
-
-export const deleteBook = async (id) => {
-    try {
-        const response = await apiClient.delete('/Book/api/delete', { data: { id } });
-        return response.data;
-    } catch (error) {
-        console.error(`Error deleting book with ID ${id}:`, error);
-        throw error;
-    }
-};
-
-
 export const clearBookCache = async (key) => {
     try {
         const response = await apiClient.delete(`/Book/api/clearCache?key=${key}`);

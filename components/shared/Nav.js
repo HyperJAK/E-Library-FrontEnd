@@ -14,7 +14,6 @@ import SignUp from '@/components/shared/Validation/SignUp'
 import Title from '@/components/shared/Title'
 import SignIn from '@/components/shared/Validation/SignIn'
 import {GetUser, RemoveUser} from '@/config/Utilities'
-import {setCurrentCartId,} from '@/config/data'
 import {currentUser, getCurrentUser, setCurrentUser} from "@/config/API/server";
 import {handleUserLogOut} from "@/config/API/user/userService";
 
@@ -122,7 +121,6 @@ const Nav = () => {
 
     setAuthed(false)
     RemoveUser()
-    setCurrentCartId(null)
   }
 
   return (

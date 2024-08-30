@@ -151,13 +151,3 @@ export const userLogOut = async (id) => {
         throw error;
     }
 };
-
-export const deleteUser = async (id) => {
-    try {
-        const response = await apiClient.delete('/User/api/delete', { data: { id } });
-        return response.data;
-    } catch (error) {
-        console.error(`Error deleting user with ID ${id}:`, error);
-        throw error;
-    }
-};
