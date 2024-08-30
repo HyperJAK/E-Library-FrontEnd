@@ -40,7 +40,6 @@ const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
   const handleSignIn = async (e) => {
     e.preventDefault()
 
-    try{
       const response= await handleVerifyUser(email, password)
       if(response && response.status === 200){
         //insert here code to save userData somewhere
@@ -54,13 +53,12 @@ const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
         else{
           setShowError(true);
         }
-
       }
-
-    }catch (error){
-      //here insert code to show error message box maybe
-      setShowError(true);
-    }
+      else{
+        console.log("Entered error condition")
+        setShowMessage(response)
+        setShowError(true);
+      }
 
   }
 
@@ -99,7 +97,7 @@ const SignIn = ({setShowSignIn, setShowAuth, setAuthed}) => {
         'relative flex flex-col items-center justify-center gap-10 rounded-bl-2xl rounded-br-2xl border-2 border-secondary bg-page p-6 align-middle'
       }>
       {showError && (
-          <ErrorNotification message={"Wrong credentials or non existent user"}/>
+          <ErrorNotification message={showMessage}/>
       )}
       {showSuccess && (
           <SuccessNotification message={`Welcome, ${user.username}`}/>

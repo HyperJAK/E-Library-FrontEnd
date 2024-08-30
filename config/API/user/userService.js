@@ -11,14 +11,21 @@ import {ValidEmail, ValidPassword, ValidUsername} from "@/config/Utilities";
 
 export const handleVerifyUser = async (email, password) => {
     try {
-        if(ValidEmail(email) && ValidPassword(password)){
-            const user = await verifyUser(email, password);
-            return user;
+
+        if(!ValidEmail(email) && !ValidPassword(password)){
+            return "Invalid input"
         }
-        else{
-            console.error('Email or password empty');
-            return null;
+
+        if(!ValidEmail(email)){
+            return "Invalid Email"
         }
+        if(!ValidPassword(password)){
+            return "Invalid Password"
+        }
+
+        const user = await verifyUser(email, password);
+        return user;
+
     } catch (error) {
         console.error('Error verifying user:', error);
         throw error;

@@ -46,7 +46,6 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
   const handleSignup = async (e) => {
     e.preventDefault()
 
-    try {
       if(cPassword === password){
         const response= await handleCreateUser(username, email, password)
 
@@ -74,10 +73,6 @@ const SignUp = ({setShowSignIn, setShowAuth, setAuthed}) => {
       else{
         setShowError(true);
       }
-
-    } catch (error) {
-      setShowError(true);
-    }
 
   }
 
