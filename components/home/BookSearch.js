@@ -127,7 +127,7 @@ const BookSearch = () => {
         {/*picture*/}
         <div>
           <Image
-            src={'/pot.png'}
+            src={'/mainBookPicture.png'}
             alt={'introductory pic'}
             width={400}
             height={400}
