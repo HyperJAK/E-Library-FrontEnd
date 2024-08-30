@@ -92,7 +92,7 @@ export const handleDeleteBook = async (id) => {
 
 export const handleClearCache = async (bookId) => {
     try {
-        const key = `Book_${bookId}`
+        const key = `${bookId}`
         const response = await clearBookCache(key);
         return response;
     } catch (error) {

@@ -58,10 +58,12 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
     }
 
     if (response && response.status === 200) {
+      //we then clear the cache
+      await handleClearCache(userBook.id)
+
         setShowMessage(response?.message)
         setShowSuccess(true)
-        //we then clear the cache
-        await handleClearCache(userBook.id)
+
     } else {
         setShowMessage(response?.message)
         setShowError(true)

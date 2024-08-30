@@ -4,7 +4,7 @@ import Button from '@/components/shared/Button'
 import {useEffect, useState} from 'react'
 import {Rubik} from 'next/font/google'
 import {fetchBook, handleClearCache} from "@/config/API/book/bookService";
-import {handleBorrowBook, handleUnborrowBook} from "@/config/API/user/userService";
+import {handleBorrowBook, handleGetUserById, handleUnborrowBook} from "@/config/API/user/userService";
 import {GetUser} from "@/config/Utilities";
 import ErrorNotification from "@/components/shared/ErrorNotification";
 import SuccessNotification from "@/components/shared/SuccessNotification";
@@ -106,6 +106,10 @@ export default function SpecificBook({params}) {
             }
 
             if (response && response.status === 200) {
+                //here we are setting the user that we get from the repsonse as default user
+                console.log(response.user)
+                setUser(response.user)
+
                 setShowMessage(response?.message)
                 setShowSuccess(true)
                 /*//we then clear the cache
@@ -127,10 +131,15 @@ export default function SpecificBook({params}) {
             }
 
             if (response && response.status === 200) {
-                setShowMessage(response?.message)
-                setShowSuccess(true)
+                //here we are setting the user that we get from the repsonse as default user
+                console.log(response.user)
+                setUser(response.user)
+
                 //we then clear the cache
                 await handleClearCache(bookId)
+
+                setShowMessage(response?.message)
+                setShowSuccess(true)
             } else {
                 setShowMessage(response?.message)
                 setShowError(true)
@@ -336,9 +345,11 @@ export default function SpecificBook({params}) {
         async function fetchUser() {
             try {
                 const data = await GetUser()
+                const newUser = await handleGetUserById(data.id)
 
-                if (data) {
-                    setUser(data)
+
+                if (newUser) {
+                    setUser(newUser)
                 } else {
                     setUser([])
                 }
@@ -365,9 +376,12 @@ export default function SpecificBook({params}) {
         resetMessageBoxes()
 
         fetchData()
-        fetchUser()
+        if(user == null || user == []){
+            fetchUser()
+        }
 
-    }, [showError, showSuccess, showMessage])
+
+    }, [showError, showSuccess, showMessage, user])
 
     return (
 
