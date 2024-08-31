@@ -4,6 +4,9 @@ const config = {
     tailwindcss: {},
     autoprefixer: {},
   },
+  images: {
+    domains: ['s3.amazonaws.com'],
+  },
 };
 
 export default config;
