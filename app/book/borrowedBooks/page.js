@@ -12,41 +12,8 @@ import {fetchBookSearchResults, fetchBorrowedBooks} from "@/config/API/book/book
 import Loading from "@/components/shared/Loading";
 import {GetUser} from "@/config/Utilities";
 import {handleGetBorrowedBooks} from "@/config/API/user/userService";
+import ErrorNotification from "@/components/shared/ErrorNotification";
 
-const InterestData = {
-    topInfo: [
-        {
-            iconPath: '/icons/beenhere.png',
-            description: 'Professional chef’s approval',
-        },
-        {
-            iconPath: '/icons/done.png',
-            description: 'Safety checks',
-        },
-        {
-            iconPath: '/icons/fast_forward.png',
-            description: 'Fast equipment deliveries',
-        },
-    ],
-    bottomInfo: [
-        {
-            dataNb: 10000,
-            description: 'Recipes published',
-        },
-        {
-            dataNb: 7000,
-            description: 'Good ratings',
-        },
-        {
-            dataNb: 100000,
-            description: 'User reviews',
-        },
-        {
-            dataNb: 100000,
-            description: 'User reviews',
-        },
-    ],
-}
 
 const rubikBold = Rubik({
     subsets: ['latin'],
@@ -62,6 +29,7 @@ const rubikRegular = Rubik({
 
 export default function BorrowedBooks() {
     const [borrowedBooks, setBorrowedBooks] = useState(null)
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -77,9 +45,22 @@ export default function BorrowedBooks() {
 
             } catch (error) {}
         }
-        if (borrowedBooks === null) {
-            fetchData()
+        async function fetchUser() {
+            try {
+                const data = await GetUser()
+
+
+                if (data) {
+                    setUser(data)
+                } else {
+                    setUser([])
+                }
+
+            } catch (error) {}
         }
+
+        fetchUser()
+        fetchData()
 
     }, [])
 
@@ -116,7 +97,7 @@ export default function BorrowedBooks() {
                                         <p className={`${rubikBold.variable} font-rubik text-[0.6rem] text-center text-primary w-[80%]`}>{book.publishingDate}</p>
 
                                         <Image
-                                            src={book.share_link}
+                                            src={book.coverImageURL}
                                             alt={'book image'}
                                             width={150}
                                             height={150}
@@ -184,8 +165,10 @@ export default function BorrowedBooks() {
                         })}
                     </div>
                 </>
-            ) : (
+            ) : user == null? (
                 <Loading message={'Loading Search Results'}/>
+            ) : (
+                <ErrorNotification message={'User is not Signed In'}/>
             )}
         </main>
     )

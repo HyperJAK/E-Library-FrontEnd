@@ -91,7 +91,7 @@ export default function SpecificGenre({params}) {
                                             <p className={`${rubikBold.variable} font-rubik text-[0.6rem] text-center text-primary w-[80%]`}>{book.publishingDate}</p>
 
                                             <Image
-                                                src={book.share_link}
+                                                src={book.coverImageURL}
                                                 alt={'book image'}
                                                 width={150}
                                                 height={150}

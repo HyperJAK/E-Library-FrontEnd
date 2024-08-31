@@ -260,6 +260,7 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
                 {
                   data.userBooks.map((userBook) => {
                     return (
+                        <>
                         <Link
                             href={`/book/${userBook.book.id}?id=${userBook.book.id}`}
                             key={userBook.book.id}
@@ -267,9 +268,9 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
                             rel="noopener noreferrer">
                           <div className="flex cursor-pointer flex-row justify-start gap-2 rounded-2xl p-4 hover:bg-secondary">
 
-                              <div className={'relative w-[30px] h-[30px] self-center'}>
+                              <div className={'relative w-[100px] h-[100px] self-center'}>
                                 <Image
-                                    src={userBook.book.CoverImageURL ?? '/bookPlaceholder.png'}
+                                    src={userBook.book.coverImageURL ?? '/bookPlaceholder.png'}
                                     alt="image"
                                     layout="fill"
 
@@ -317,6 +318,7 @@ const UserProfilePicDiv = ({data,setSubscriptionChanged, subscriptionChanged}) =
 
                           </div>
                         </Link>
+                        </>
                     )
                   })
                 }

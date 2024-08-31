@@ -38,34 +38,34 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-row flex-wrap self-start'}>
                 {/*We use a fetch in this component to get the user info so like username*/}
                 <div className={'flex flex-col flex-wrap justify-start m-auto items-start gap-1'}>
-                    <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} font-rubik text-[1.4rem]`}><span className={`${rubikBold.variable} font-rubik text-[2.5rem]`}>{bookDetails.title ?? 'Harry potter'}</span>  -  {bookDetails.publishingDate ?? '2023-01-02'}
+                    <p className={`pt-3 pr-3 pb-3 ${rubikRegular.variable} font-rubik text-[1.4rem]`}><span className={`${rubikBold.variable} font-rubik text-[2.5rem]`}>{bookDetails.title ?? ''}</span>  -  {bookDetails.publishingDate ?? ''}
 
                     </p>
                     <div className={'flex flex-row flex-nowrap justify-between gap-2'}>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            Written by: {bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}
+                            Written by: {bookDetails.author?.firstName ?? ''} {bookDetails.author?.lastName ?? ''}
                         </div>
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            {bookDetails.type ?? 'Physical'}
+                            {bookDetails.type ?? ''}
                         </div>
 
                         {/*This can be count if its regular or file size if its digital*/}
                         {
                             bookDetails.type === 'Digital' ? (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                                    {bookDetails.fileSizeInMB ?? '30'}MB
+                                    {bookDetails.fileSizeInMB ?? ''}MB
                                 </div>
                             ) : (
                                 <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                                    {bookDetails.physicalBookCount ?? '30'} Books
+                                    {bookDetails.physicalBookCount ?? ''} Books
                                 </div>
                             )
                         }
 
                         <div className={`rounded-full bg-secondary ${rubikRegular.variable} text-accent font-rubik text-[0.8rem] p-2`}>
-                            {bookDetails.pageCount ?? '220'} Pages
+                            {bookDetails.pageCount ?? ''} Pages
                         </div>
 
                     </div>
@@ -189,7 +189,7 @@ export default function SpecificBook({params}) {
             setIsExpanded(!isExpanded);
         };
 
-        const description = bookDetails.description ?? 'The Kingdom of Clays faces a dire crisis: an assassination attempt has just been made on its own Princess Lynneburg, and its neighboring countries eye the aftermath like starving vultures, plotting the Kingdom\'s downfall. The ensuing conflict will shape the face of the continent for centuries to come...but Noor doesn’t have a clue about any of that! Having freshly arrived at the royal capital after over a decade of rigorous, isolated training at his mountain home, he’s dead set on achieving his childhood dream of becoming an adventurer, even if the only skills he possesses are useless ones. Sure, he can "Parry" thousands of swords in the span of a single breath, but everybody knows you need more than that if you want to be an adventurer! Our hero’s road to making his dream come true will be long(?) and arduous(?)—but if there’s one thing Noor’s not afraid of, it’s some good ol’ fashioned hard work!';
+        const description = bookDetails.description ?? '';
 
         const threshold = 400;
 
@@ -212,7 +212,7 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap max-w-[400px]'}>
 
                 {/*type*/}
-                <p className={'text-primary font-bold'}>Type: <span className={'text-primary font-normal'}>{bookDetails.type ?? 'Physical'}</span></p>
+                <p className={'text-primary font-bold'}>Type: <span className={'text-primary font-normal'}>{bookDetails.type ?? ''}</span></p>
                 {/*languages*/}
                 <p className={'text-primary font-bold'}>Languages:
                     {bookDetails.languages &&
@@ -228,9 +228,9 @@ export default function SpecificBook({params}) {
 
 
                 {/*publishing date*/}
-                <p className={'text-primary font-bold'}>Publishing Date: <span className={'text-primary font-normal'}>{bookDetails.publishingDate ?? '2023-03-01'}</span></p>
+                <p className={'text-primary font-bold'}>Publishing Date: <span className={'text-primary font-normal'}>{bookDetails.publishingDate ?? ''}</span></p>
                 {/*author*/}
-                <p className={'text-primary font-bold'}>Author: <span className={'text-primary font-normal'}>{bookDetails.author?.firstName ?? 'Unknown'} {bookDetails.author?.lastName ?? 'Unknown'}</span></p>
+                <p className={'text-primary font-bold'}>Author: <span className={'text-primary font-normal'}>{bookDetails.author?.firstName ?? ''} {bookDetails.author?.lastName ?? ''}</span></p>
 
                 {/*genres*/}
                 <p className={'max-w-[400px] text-primary font-bold'}>Genres:
@@ -255,17 +255,17 @@ export default function SpecificBook({params}) {
             <div className={'flex flex-col flex-nowrap'}>
 
                 {/*pages count*/}
-                <p className={'text-primary font-bold'}>Pages: <span className={'text-primary font-normal'}>{bookDetails.pageCount ?? '300'}</span></p>
+                <p className={'text-primary font-bold'}>Pages: <span className={'text-primary font-normal'}>{bookDetails.pageCount ?? ''}</span></p>
                 {/*size if digital, or stock if physical*/}
                 {
                     bookDetails.type === 'Digital' ? (
-                        <p className={'text-primary font-bold'}>Size: <span className={'text-primary font-normal'}>{bookDetails.fileSizeInMB ?? '30'}MB</span></p>
+                        <p className={'text-primary font-bold'}>Size: <span className={'text-primary font-normal'}>{bookDetails.fileSizeInMB ?? ''}MB</span></p>
                     ) : (
-                        <p className={'text-primary font-bold'}>Stock: <span className={'text-primary font-normal'}>{bookDetails.physicalBookCount ?? '30'}</span></p>
+                        <p className={'text-primary font-bold'}>Stock: <span className={'text-primary font-normal'}>{bookDetails.physicalBookCount ?? ''}</span></p>
                     )
                 }
                 {/*publisher*/}
-                <p className={'text-primary font-bold'}>Publisher: <span className={'text-primary font-normal'}>{bookDetails.publisher ?? 'Someone'}</span></p>
+                <p className={'text-primary font-bold'}>Publisher: <span className={'text-primary font-normal'}>{bookDetails.publisher ?? ''}</span></p>
 
 
                 {/*tags*/}
@@ -305,9 +305,9 @@ export default function SpecificBook({params}) {
                         <p className={'text-primary font-bold'}>
                             Location:
                             <span className="text-primary font-normal">{' '}
-                                Floor: {bookDetails.physicalBookLocation?.floor ?? '2'} -
-                                Section: {bookDetails.physicalBookLocation?.section ?? 'B'} -
-                                Shelf: {bookDetails.physicalBookLocation?.shelf ?? '4'}
+                                Floor: {bookDetails.physicalBookLocation?.floor ?? ''} -
+                                Section: {bookDetails.physicalBookLocation?.section ?? ''} -
+                                Shelf: {bookDetails.physicalBookLocation?.shelf ?? ''}
                             </span>
                         </p>
                     )
@@ -388,7 +388,7 @@ export default function SpecificBook({params}) {
     return (
 
             <main className="relative flex min-h-screen flex-col items-center justify-between gap-40 p-10 text-black">
-                {bookDetails ? (
+                {bookDetails && user ? (
                     <>
 
                         {showError && (

@@ -11,40 +11,7 @@ import Link from 'next/link'
 import {fetchBookSearchResults} from "@/config/API/book/bookService";
 import Loading from "@/components/shared/Loading";
 
-const InterestData = {
-  topInfo: [
-    {
-      iconPath: '/icons/beenhere.png',
-      description: 'Professional chef’s approval',
-    },
-    {
-      iconPath: '/icons/done.png',
-      description: 'Safety checks',
-    },
-    {
-      iconPath: '/icons/fast_forward.png',
-      description: 'Fast equipment deliveries',
-    },
-  ],
-  bottomInfo: [
-    {
-      dataNb: 10000,
-      description: 'Recipes published',
-    },
-    {
-      dataNb: 7000,
-      description: 'Good ratings',
-    },
-    {
-      dataNb: 100000,
-      description: 'User reviews',
-    },
-    {
-      dataNb: 100000,
-      description: 'User reviews',
-    },
-  ],
-}
+
 
 const rubikBold = Rubik({
   subsets: ['latin'],
@@ -122,7 +89,7 @@ export default function SearchResults({params}) {
                         <p className={`${rubikBold.variable} font-rubik text-[0.6rem] text-center text-primary w-[80%]`}>{book.publishingDate}</p>
 
                         <Image
-                            src={book.share_link}
+                            src={book.coverImageURL}
                             alt={'book image'}
                             width={150}
                             height={150}

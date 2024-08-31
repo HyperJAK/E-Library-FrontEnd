@@ -111,7 +111,7 @@ const BookSearch = () => {
                     rel="noopener noreferrer">
                     <div className="flex cursor-pointer flex-row justify-start items-center gap-2 rounded-2xl p-4 hover:bg-secondary">
                       <Image
-                        src={suggestion.share_link ?? '/pot.png'}
+                        src={suggestion.coverImageURL ?? '/pot.png'}
                         alt="image"
                         width={30}
                         height={30}

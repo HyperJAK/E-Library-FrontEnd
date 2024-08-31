@@ -59,16 +59,7 @@ const InterestingInfo = () => {
         className={
           'z-50 flex w-full flex-row flex-wrap items-center justify-center gap-60 pb-[120px] pl-40 pr-40 pt-[120px]'
         }>
-        {/*Image div*/}
-        <div className={'relative'}>
-          <Image
-            src={'/bunnyHoney.png'}
-            alt={'rabbit image'}
-            width={500}
-            height={500}
-            className={'rounded-2xl'}
-          />
-        </div>
+
         {/*Main info div*/}
         <div className={'flex flex-col flex-wrap gap-5'}>
           {/*first 3 normal ones*/}
