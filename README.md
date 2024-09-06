@@ -1,5 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+Uses Backend API, [Here](https://github.com/HyperJAK/E-LibraryAPI.git).
 ## Getting Started
 
 First, run the development server:
